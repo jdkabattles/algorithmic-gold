@@ -156,6 +156,21 @@ input[type=email]::placeholder{color:var(--dim)}
 .share-msg.ok{color:var(--green)}
 @media(max-width:560px){.sh span{display:none}.sh{padding:12px}}
 
+/* proofbar (social proof) */
+.proofbar{display:flex;gap:1px;margin-top:24px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--border)}
+.pb-item{flex:1;background:var(--bg2);padding:14px 18px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.pb-item b{display:block;color:var(--gold);font-family:var(--mono);font-size:15px;margin-bottom:3px}
+/* reciprocity */
+.recip{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:20px;background:rgba(245,197,66,.04);border:1px solid rgba(245,197,66,.25);border-radius:14px;padding:18px 24px;flex-wrap:wrap}
+.recip-txt{font-size:14.5px;color:var(--muted);max-width:560px}
+.recip-txt b{color:var(--ink)}
+.recip .btn{flex-shrink:0;min-height:44px}
+/* loss aversion */
+.lossav{color:var(--muted);font-size:16px;max-width:580px;margin:0 auto 14px}
+.lossav b{color:var(--red)}
+/* zeigarnik open loop */
+.openloop{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;color:var(--muted);border:1px dashed rgba(245,197,66,.4);background:rgba(245,197,66,.04);padding:10px 20px;border-radius:100px;margin:26px auto 22px;cursor:default}
+.ol-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;flex-shrink:0}
 /* patterns */
 .patterns{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .pat{display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 22px 18px;color:var(--ink);text-decoration:none;transition:border-color .2s,transform .2s}
@@ -200,6 +215,7 @@ input[type=email]::placeholder{color:var(--dim)}
 .sticky p{font-size:14.5px;color:var(--muted)}
 .sticky p b{color:var(--ink)}
 .sticky .btn{padding:11px 26px;font-size:14px;min-height:44px;animation:none}
+.rot-proof{color:var(--gold);font-family:var(--mono);font-size:12.5px}
 
 footer{padding:44px 0 110px;border-top:1px solid var(--border);color:var(--dim);font-size:13.5px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
@@ -275,6 +291,16 @@ footer a{color:var(--muted)}
         <span class="ctr-label">CTA CLICKS</span>
         <span class="ctr-val" id="click-count">0</span>
       </div>
+    </div>
+
+    <div class="proofbar rv">
+      <div class="pb-item"><b>49</b> patterns, every one cited to a live source</div>
+      <div class="pb-item"><b>PR #104</b> open on Awesome-LLM-Eval — the eval list itself</div>
+      <div class="pb-item"><b>IndexNow</b> accepted — Bing, Yandex, Seznam, Naver</div>
+    </div>
+    <div class="recip rv">
+      <div class="recip-txt"><b>Take the checklist first.</b> The printable six-gate card — free, no email required. Reciprocity: you get something before we ask for anything.</div>
+      <a class="btn btn-ghost" href="https://gist.github.com/jdkabattles/f70d018fc0bdfe95dbbbe386fc3412e3" target="_blank" rel="noopener">Get the free checklist →</a>
     </div>
   </div>
 </header>
@@ -506,11 +532,14 @@ footer a{color:var(--muted)}
 <section class="final" id="get">
   <div class="wrap">
     <div class="tag rv" style="margin-bottom:18px">Join the standard</div>
-    <h2 class="rv">Stop shipping claims.<br>Start shipping <span style="color:var(--gold)">receipts.</span></h2>
-    <p class="lede rv">Get the <code style="font-family:var(--mono);color:var(--gold)">judge()</code> harness, the six-gate checklist, and the seed protocol. One file. Standard library only. Runs on your phone.</p>
+    <h2 class="rv">One number decides<br>if your work is real.</h2>
+    <p class="lede rv">The open loop: you've seen the gates, the patterns, the live telemetry — but you haven't seen <em>your</em> domain pass the gate. That gap is exactly what the harness closes.</p>
+    <p class="lede lossav rv">Every day you ship without a receipt, a claim ships that can't survive one. <b>That's the loss — not a missed discount.</b> The standard is free. The cost of skipping it compounds.</p>
+    <p class="lede rv">Get the <code style="font-family:var(--mono);color:var(--gold)">judge()</code> harness, the six-gate checklist, and the seed protocol. One file. Standard library only. Runs on your phone. <b>Free forever — no account, no upsell.</b></p>
+    <div class="openloop rv"><span class="ol-dot"></span>1 open loop: your first gated run hasn't happened yet — close it below</div>
     <form id="waitlist" novalidate>
       <input type="email" id="email" placeholder="you@domain.com" autocomplete="email" required>
-      <button type="submit" class="btn btn-primary">Get the Standard</button>
+      <button type="submit" class="btn btn-primary">Close the loop — Get the Standard</button>
     </form>
     <p class="form-msg" id="form-msg"></p>
     <p class="microcopy">Free · No spam · The standard belongs to everyone</p>
@@ -534,7 +563,7 @@ footer a{color:var(--muted)}
 
 <div class="sticky" id="sticky">
   <div class="wrap">
-    <p><b>Done is a claim.</b> GOLD is a receipt.</p>
+    <p><b>Done is a claim.</b> GOLD is a receipt. <span class="rot-proof" id="rot-proof"></span></p>
     <a href="#get" class="btn btn-primary">Get the Standard →</a>
   </div>
 </div>
@@ -696,6 +725,31 @@ footer a{color:var(--muted)}
       if (ccEl) ccEl.textContent = c.toLocaleString();
     });
   });
+
+  // rotating proof line (variable reward — Skinner) in sticky bar
+  (function(){
+    var el = document.getElementById('rot-proof');
+    if (!el) return;
+    var proofs = [
+      '· 6/6 gates or nothing ships',
+      '· the flat slice failed on a real run — and the report says so',
+      '· 5 fresh seeds + 1 frozen holdout',
+      '· 49 patterns, every one cited',
+      '· −0.144 corr stays in the report',
+      '· win = bootstrap lower bound, not a point estimate',
+      '· commit hash freezes before the seed exists',
+      '· a single GOLD True never counts'
+    ];
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = proofs[0]; return; }
+    var i = 0;
+    el.textContent = proofs[0];
+    setInterval(function(){
+      i = (i + 1) % proofs.length;
+      el.style.opacity = '0';
+      setTimeout(function(){ el.textContent = proofs[i]; el.style.opacity = '1'; }, 250);
+    }, 3200);
+    el.style.transition = 'opacity .25s';
+  })();
 
   // live animated counters for the big stat strip use existing code; now counters done.
 

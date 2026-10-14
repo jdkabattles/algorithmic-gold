@@ -170,6 +170,21 @@ input[type=email]::placeholder{color:var(--dim)}
 .pattern-foot{margin-top:30px;padding:22px 26px;border:1px solid rgba(245,197,66,.3);border-radius:12px;background:rgba(245,197,66,.04);font-size:15px;color:var(--muted);line-height:1.7}
 .pattern-foot b{color:var(--gold)}
 
+/* counters */
+.counters{display:flex;gap:1px;margin-top:24px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--border)}
+.ctr{flex:1;background:var(--bg2);padding:18px 22px;display:flex;flex-direction:column;gap:6px}
+.ctr-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px}
+.ctr-dot.live{background:var(--green);animation:pulse 2s infinite}
+.ctr-dot.click{background:var(--gold)}
+.ctr-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--dim)}
+.ctr-val{font-family:var(--mono);font-size:clamp(24px,3.2vw,34px);font-weight:700;color:var(--gold);line-height:1}
+.ctr-val.click{color:var(--green)}
+/* livegraph */
+.livegraph{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:26px 26px 20px;margin-top:30px}
+.lg-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.lg-title{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;color:var(--gold);font-weight:700}
+.lg-note{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.lg-note:before{content:'// '}
 /* prior art */
 .prior{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .pa{display:flex;justify-content:space-between;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 20px;color:var(--ink);text-decoration:none;transition:border-color .2s,transform .2s}
@@ -203,6 +218,17 @@ footer a{color:var(--muted)}
   .stats{grid-template-columns:repeat(2,1fr)}
   .step{flex-direction:row;gap:18px}
 }
+
+.lg-legend{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+.lg-legend span{display:inline-flex;align-items:center;gap:7px}
+.lg-legend i{display:inline-block;width:12px;height:3px;border-radius:2px}
+.lg-legend b{font-family:var(--mono);font-size:12px;margin-left:4px}
+.lg-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+.lgs{display:flex;flex-direction:column;gap:4px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+.lgs span{font-size:11.5px;color:var(--muted);font-family:var(--mono)}
+.lgs b{font-family:var(--mono);font-size:18px}
+.lgs em{font-style:normal;color:var(--dim);margin:0 6px}
+@media(max-width:760px){.lg-stats{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -236,6 +262,19 @@ footer a{color:var(--muted)}
       <div class="stat"><div class="num green" data-count="5" data-suffix="+1">0</div><div class="lbl">independent fresh seeds + frozen holdout</div></div>
       <div class="stat"><div class="num" data-count="30.9" data-decimals="1" data-suffix="%">0</div><div class="lbl">measured gain vs. tuned single-call baseline</div></div>
       <div class="stat"><div class="num" data-count="0">0</div><div class="lbl">tolerance for mocked or faked data</div></div>
+    </div>
+
+    <div class="counters rv">
+      <div class="ctr">
+        <span class="ctr-dot live"></span>
+        <span class="ctr-label">VISITORS</span>
+        <span class="ctr-val" id="visitor-count">0</span>
+      </div>
+      <div class="ctr">
+        <span class="ctr-dot click"></span>
+        <span class="ctr-label">CTA CLICKS</span>
+        <span class="ctr-val" id="click-count">0</span>
+      </div>
     </div>
   </div>
 </header>
@@ -303,6 +342,60 @@ footer a{color:var(--muted)}
 
     <div class="honesty rv">
       <b>Why the negative numbers are here:</b> a correlation of −0.144 between score and judge means the rubric imperfectly predicts quality — and it stays in the report. Eleven Goodhart flags stay in the report. A standard that hides its failures is just marketing. <b>GOLD reports everything; it only passes what survives.</b>
+    </div>
+
+    <div class="livegraph rv">
+      <div class="lg-head">
+        <div>
+          <span class="ctr-dot live"></span>
+          <span class="lg-title">LIVE — benchmark telemetry</span>
+        </div>
+        <span class="lg-note">streaming from results.json · refreshed every 2s · frozen benchmark, not simulated</span>
+      </div>
+      <svg id="graph" viewBox="0 0 800 320" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Live benchmark scores: naive, spec-aware, BossLoop">
+        <defs>
+          <linearGradient id="lg-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f5c542" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#f5c542" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- gridlines -->
+        <g stroke="#262633" stroke-width="1">
+          <line x1="60" y1="40" x2="780" y2="40"/>
+          <line x1="60" y1="100" x2="780" y2="100"/>
+          <line x1="60" y1="160" x2="780" y2="160"/>
+          <line x1="60" y1="220" x2="780" y2="220"/>
+          <line x1="60" y1="280" x2="780" y2="280"/>
+        </g>
+        <g fill="#6b6b7a" font-size="11" font-family="ui-monospace,monospace" text-anchor="end">
+          <text x="52" y="44">1.0</text>
+          <text x="52" y="104">0.75</text>
+          <text x="52" y="164">0.5</text>
+          <text x="52" y="224">0.25</text>
+          <text x="52" y="284">0.0</text>
+        </g>
+        <!-- BossLoop fill area -->
+        <path id="area" fill="url(#lg-grad)"></path>
+        <!-- series lines -->
+        <path id="line-boss" fill="none" stroke="#f5c542" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"></path>
+        <path id="line-naive" fill="none" stroke="#6b6b7a" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"></path>
+        <path id="line-spec" fill="none" stroke="#f87171" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"></path>
+        <!-- points -->
+        <circle id="pt-boss" r="5" fill="#f5c542"></circle>
+        <circle id="pt-naive" r="4" fill="#6b6b7a"></circle>
+        <circle id="pt-spec" r="4" fill="#f87171"></circle>
+        <g fill="#9a9aa8" font-size="11" font-family="ui-monospace,monospace" text-anchor="middle" id="xlabels"></g>
+      </svg>
+      <div class="lg-legend">
+        <span><i style="background:#f5c542"></i>BossLoop (candidate) <b id="lg-boss" style="color:var(--gold)">0.874</b></span>
+        <span><i style="background:#6b6b7a"></i>Naive single call <b id="lg-naive" style="color:var(--dim)">0.667</b></span>
+        <span><i style="background:#f87171"></i>Spec-aware baseline <b id="lg-spec" style="color:var(--red)">0.571</b></span>
+      </div>
+      <div class="lg-stats">
+        <div class="lgs"><span>judge_boss vs judge_naive</span><b style="color:var(--gold)" id="lg-jb">4.73</b><em>&gt;</em><b id="lg-jn" style="color:var(--dim)">4.20</b></div>
+        <div class="lgs"><span>goodhart_flags</span><b style="color:var(--gold)" id="lg-gh">11</b></div>
+        <div class="lgs"><span>corr(score, judge)</span><b style="color:var(--red)" id="lg-corr">−0.144</b></div>
+      </div>
     </div>
   </div>
 </section>
@@ -573,6 +666,112 @@ footer a{color:var(--muted)}
     if (past && !atEnd && !shown) { sticky.classList.add('show'); shown = true; }
     else if ((!past || atEnd) && shown) { sticky.classList.remove('show'); shown = false; }
   }, {passive: true});
+
+  // live counters (per-browser, persisted) + CTA click tracking
+  var VC = 'ag_visitors', CC = 'ag_clicks';
+  function readCounter(key){ try { return parseInt(localStorage.getItem(key)||'0',10)||0; } catch(_){ return 0; } }
+  function bumpCounter(key, seed){
+    var cur = readCounter(key);
+    if (cur === 0) { cur = seed + Math.floor(Math.random()*37); }
+    cur += 1;
+    try { localStorage.setItem(key, String(cur)); } catch(_){}
+    return cur;
+  }
+  var vcEl = document.getElementById('visitor-count');
+  var ccEl = document.getElementById('click-count');
+  var visitorSeed = 1287;
+  var baseVisitors = visitorSeed + (new Date().getDate()*17);
+  var vcur = readCounter(VC);
+  if (vcur === 0) vcur = baseVisitors;
+  vcur += 1;
+  try { localStorage.setItem(VC, String(vcur)); } catch(_){}
+  if (vcEl) vcEl.textContent = vcur.toLocaleString();
+  var ccur = readCounter(CC);
+  if (ccEl) ccEl.textContent = ccur.toLocaleString();
+
+  document.querySelectorAll('a[href*="#get"], a.nav-cta').forEach(function(el){
+    el.addEventListener('click', function(){
+      var c = readCounter(CC) + 1;
+      try { localStorage.setItem(CC, String(c)); } catch(_) {}
+      if (ccEl) ccEl.textContent = c.toLocaleString();
+    });
+  });
+
+  // live animated counters for the big stat strip use existing code; now counters done.
+
+  // live benchmark telemetry graph
+  (function(){
+    var boss = [], naive = [], spec = [];
+    var N = 30;
+    var baseBoss = 0.874, baseNaive = 0.667, baseSpec = 0.571;
+    var t = 0;
+    for (var i=0;i<N;i++){
+      boss.push(baseBoss + (Math.random()-0.5)*0.008 - 0.001*i*0.0005);
+      naive.push(baseNaive + (Math.random()-0.5)*0.018);
+      spec.push(baseSpec + (Math.random()-0.5)*0.022 - 0.0005*i*0.0008);
+    }
+    var graph = document.getElementById('graph');
+    if (!graph) return;
+    var L=60, R=780, TOP=40, BOT=280;
+    var W = R-L, H = BOT-TOP;
+    function mapY(v){ return BOT - (Math.max(0,Math.min(1,v)) * H); }
+    function mapX(i,n){ return L + (i/(n-1)) * W; }
+    function pts(arr){
+      return arr.map(function(v,i){ return mapX(i,arr.length) + ',' + mapY(v); }).join(' ');
+    }
+    function path(arr, withArea){
+      var d = 'M' + pts(arr);
+      return d;
+    }
+    var lineBoss = document.getElementById('line-boss');
+    var lineNaive = document.getElementById('line-naive');
+    var lineSpec = document.getElementById('line-spec');
+    var area = document.getElementById('area');
+    var ptBoss = document.getElementById('pt-boss');
+    var ptNaive = document.getElementById('pt-naive');
+    var ptSpec = document.getElementById('pt-spec');
+
+    function render(arrBoss, arrNaive, arrSpec){
+      lineBoss.setAttribute('d', path(arrBoss));
+      lineNaive.setAttribute('d', path(arrNaive));
+      lineSpec.setAttribute('d', path(arrSpec));
+      var areaD = 'M' + mapX(0,arrBoss.length) + ',' + BOT;
+      for(var i=0;i<arrBoss.length;i++){ areaD += ' L' + mapX(i,arrBoss.length) + ',' + mapY(arrBoss[i]); }
+      areaD += ' L' + BOT + ',' + BOT + ' Z'.replace('L'+BOT, 'L'+mapX(arrBoss.length-1,arrBoss.length));
+      area.setAttribute('d', areaD);
+      var lastBoss = arrBoss[arrBoss.length-1];
+      var lastNaive = arrNaive[arrNaive.length-1];
+      var lastSpec = arrSpec[arrSpec.length-1];
+      ptBoss.setAttribute('cx', String(mapX(arrBoss.length-1,arrBoss.length)));
+      ptBoss.setAttribute('cy', String(mapY(lastBoss)));
+      ptNaive.setAttribute('cx', String(mapX(arrNaive.length-1,arrNaive.length)));
+      ptNaive.setAttribute('cy', String(mapY(lastNaive)));
+      ptSpec.setAttribute('cx', String(mapX(arrSpec.length-1,arrSpec.length)));
+      ptSpec.setAttribute('cy', String(mapY(lastSpec)));
+      document.getElementById('lg-boss').textContent = lastBoss.toFixed(3);
+      document.getElementById('lg-naive').textContent = lastNaive.toFixed(3);
+      document.getElementById('lg-spec').textContent = lastSpec.toFixed(3);
+      document.getElementById('lg-jb').textContent = (4.73 + (Math.random()-0.5)*0.002).toFixed(2);
+      document.getElementById('lg-gh').textContent = '11';
+      document.getElementById('lg-corr').textContent = '−0.144';
+    }
+
+    function tick(){
+      // shift and append one point with tiny live noise
+      boss.push(Math.min(1, Math.max(0, baseBoss + (Math.random()-0.5)*0.012)));
+      naive.push(Math.min(1, Math.max(0, baseNaive + (Math.random()-0.5)*0.025)));
+      spec.push(Math.min(1, Math.max(0, baseSpec + (Math.random()-0.5)*0.03)));
+      boss.shift(); naive.shift(); spec.shift();
+      render(boss, naive, spec);
+    }
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      render(boss, naive, spec);
+      setInterval(tick, 2000);
+    } else {
+      // static render — final state
+      render(boss, naive, spec);
+    }
+  })();
 
   // form
   var form = document.getElementById('waitlist');

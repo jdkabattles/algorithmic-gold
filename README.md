@@ -58,6 +58,38 @@ The ecosystem this standard stands on (verified, linked from the site):
 - [LLMBar](https://github.com/princeton-nlp/LLMBar) — the adversary cite
 - [Awesome-LLM-Eval](https://github.com/onejune2018/Awesome-LLM-Eval)
 
+## The Pattern Atlas — 49 verified patterns, three families
+
+Searched the wide web, source by source. Every pattern is named, real, and links to
+a live page (arXiv, GitHub, Wikipedia, or the originating paper). No invented
+sources.
+
+- **Family 01 — The engine (workflows that create algorithms):** AlphaEvolve,
+  FunSearch, AlphaZero self-play, AlphaGeometry 2, AlphaProof, Darwin Gödel
+  Machine, The AI Scientist, Reflexion, Voyager, verifier-in-the-loop process
+  reward models, test-time compute scaling. All run the same loop: propose ->
+  evaluate against an ungameable signal -> keep only what measurably wins ->
+  repeat on unseen instances.
+- **Family 02 — The receipt (verification integrity):** Campbell's law, winner's
+  curse, garden of forking paths, always-valid inference, sequential testing,
+  E-values, guardrail metrics, A/A testing, preregistration, registered reports,
+  holdout methodology, Kaggle leaderboard shuffle, novelty/primacy effects,
+  interleaving, k-fold, property-based / mutation / metamorphic testing,
+  fuzzing, chaos engineering, canary releases, red teaming, adversarial
+  collaboration, reproducibility crisis, Cohen's d.
+- **Family 03 — The dealer (engagement):** Hooked model, Cialdini's six,
+  variable ratio reinforcement, curiosity gap, Zeigarnik, loss aversion,
+  anchoring, sunk cost / IKEA / endowment / peak-end, plus the guardrail:
+  dark patterns (never used here).
+
+The canonical one-liner: `freeze before you look -> same fight for both sides ->
+score against sealed truth -> demand the paired win survives bootstrap and
+correction -> prove it isn't the prior, proxy, or compute -> repeat on seeds
+never seen.`
+
+Live atlas: https://jdkabattles.github.io/algorithmic-gold/patterns/
+Full verified list lives in the browser at that URL, one cited card per pattern.
+
 ## Repo layout
 
 ```

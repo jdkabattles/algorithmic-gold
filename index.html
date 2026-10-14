@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algorithmic Gold — Done Is a Claim. GOLD Is a Receipt.</title>
+<meta name="description" content="The verification standard for AI work: gains proven by a signal the procedure can't game, against a strong fair baseline. Commit, parity, placebo, paired-corrected win, Goodhart, cost. Real receipts, not vibes.">
+<meta property="og:title" content="Algorithmic Gold — Done Is a Claim. GOLD Is a Receipt.">
+<meta property="og:description" content="The verification standard for AI work. Six gates. Real outcomes. No mocked runs.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0f'/%3E%3Cpath d='M8 22l8-14 8 14' stroke='%23f5c542' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0a0a0f; --bg2:#0f0f16; --surface:#14141d; --surface2:#1a1a26;
+  --ink:#f4f4f6; --muted:#9a9aa8; --dim:#6b6b7a; --border:#262633;
+  --gold:#f5c542; --gold-dim:#b8912a; --green:#4ade80; --red:#f87171;
+  --mono:ui-monospace,'SF Mono','Cascadia Code','JetBrains Mono',Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--gold);color:#000}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-.02em}
+.logo svg{flex-shrink:0}
+.logo span{color:var(--gold)}
+.nav-cta{background:var(--gold);color:#000;font-weight:700;font-size:14px;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(245,197,66,.35);text-decoration:none;color:#000}
+
+/* hero */
+header{padding:160px 0 90px;position:relative}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,197,66,.09),transparent 65%);pointer-events:none}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;opacity:.25;mask-image:radial-gradient(ellipse 80% 60% at 50% 10%,#000 20%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 10%,#000 20%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--gold);border:1px solid rgba(245,197,66,.3);background:rgba(245,197,66,.06);padding:7px 16px;border-radius:100px;margin-bottom:28px;letter-spacing:.04em}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-size:clamp(40px,7vw,72px);line-height:1.05;letter-spacing:-.035em;font-weight:800;margin-bottom:24px;max-width:840px;margin-left:auto;margin-right:auto}
+h1 .g{color:var(--gold);position:relative;white-space:nowrap}
+h1 .g::after{content:'';position:absolute;left:0;right:0;bottom:6px;height:10px;background:rgba(245,197,66,.18);z-index:-1}
+.sub{font-size:clamp(17px,2.4vw,21px);color:var(--muted);max-width:640px;margin:0 auto 40px}
+.sub b{color:var(--ink);font-weight:600}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:16px;padding:16px 34px;border-radius:11px;border:none;cursor:pointer;transition:transform .15s,box-shadow .15s;min-height:52px}
+.btn-primary{background:var(--gold);color:#000;box-shadow:0 0 0 0 rgba(245,197,66,.45);animation:glow 2.4s infinite}
+@keyframes glow{0%{box-shadow:0 0 0 0 rgba(245,197,66,.4)}70%{box-shadow:0 0 0 16px rgba(245,197,66,0)}100%{box-shadow:0 0 0 0 rgba(245,197,66,0)}}
+.btn-primary:hover{transform:translateY(-2px) scale(1.02);text-decoration:none;color:#000}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--muted);background:var(--surface);text-decoration:none;color:var(--ink)}
+.microcopy{font-family:var(--mono);font-size:12.5px;color:var(--dim)}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:70px}
+.stat{background:var(--bg2);padding:26px 20px;text-align:center}
+.stat .num{font-family:var(--mono);font-size:clamp(26px,3.6vw,38px);font-weight:700;color:var(--gold);letter-spacing:-.02em}
+.stat .num.green{color:var(--green)}
+.stat .lbl{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+/* sections */
+section{padding:90px 0}
+.tag{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+h2{font-size:clamp(30px,4.6vw,46px);line-height:1.12;letter-spacing:-.03em;font-weight:800;max-width:640px;margin-bottom:18px}
+.lede{color:var(--muted);font-size:18px;max-width:600px;margin-bottom:52px}
+
+/* problem cards */
+.problems{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 24px;transition:border-color .2s,transform .2s}
+.pcard:hover{border-color:rgba(248,113,113,.4);transform:translateY(-3px)}
+.pcard .icon{font-family:var(--mono);color:var(--red);font-size:13px;border:1px solid rgba(248,113,113,.35);display:inline-block;padding:3px 10px;border-radius:6px;margin-bottom:16px}
+.pcard h3{font-size:17px;margin-bottom:8px;letter-spacing:-.01em}
+.pcard p{color:var(--muted);font-size:14.5px}
+
+/* gates */
+.gates{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.gate{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px 26px 26px 30px;position:relative;overflow:hidden}
+.gate::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);opacity:.7}
+.gate .no{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em;margin-bottom:10px}
+.gate h3{font-size:18px;margin-bottom:8px;letter-spacing:-.01em}
+.gate p{color:var(--muted);font-size:14.5px}
+.gate code{font-family:var(--mono);font-size:12.5px;background:var(--surface2);padding:2px 7px;border-radius:5px;color:var(--gold);border:1px solid var(--border)}
+
+/* proof */
+.proof-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.proof-head{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--surface)}
+.proof-head .r{width:11px;height:11px;border-radius:50%}
+.proof-head .r1{background:#f87171}.proof-head .r2{background:#fbbf24}.proof-head .r3{background:#4ade80}
+.proof-head .title{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-left:10px}
+.term{padding:24px;font-family:var(--mono);font-size:13.5px;line-height:1.85;overflow-x:auto}
+.term .ln{display:flex;justify-content:space-between;gap:24px;white-space:nowrap}
+.term .ln span:first-child{color:var(--muted)}
+.term .val{font-weight:700}
+.term .g{color:var(--green)}
+.term .y{color:var(--gold)}
+.term .r{color:var(--red)}
+.bars{padding:0 24px 24px}
+.bar-row{margin-bottom:18px}
+.bar-row:last-child{margin-bottom:0}
+.bar-row .meta{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:7px}
+.bar-row .meta b{font-family:var(--mono)}
+.bar-track{height:10px;background:var(--surface2);border-radius:100px;overflow:hidden}
+.bar-fill{height:100%;border-radius:100px;width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.bar-fill.b1{background:var(--dim)}
+.bar-fill.b2{background:var(--gold)}
+.honesty{margin-top:22px;padding:18px 22px;border:1px dashed rgba(245,197,66,.35);border-radius:12px;color:var(--muted);font-size:14px;background:rgba(245,197,66,.03)}
+.honesty b{color:var(--gold)}
+
+/* steps */
+.steps{counter-reset:step}
+.step{display:flex;gap:26px;padding:34px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step .n{counter-increment:step;flex-shrink:0;width:46px;height:46px;border-radius:12px;border:1px solid rgba(245,197,66,.4);color:var(--gold);font-family:var(--mono);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:16px;background:rgba(245,197,66,.05)}
+.step h3{font-size:19px;margin-bottom:6px;letter-spacing:-.01em}
+.step p{color:var(--muted);font-size:15px;max-width:560px}
+
+/* cta */
+.final{text-align:center;padding:110px 0;position:relative}
+.final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 60%,rgba(245,197,66,.08),transparent 70%);pointer-events:none}
+.final h2{margin:0 auto 18px}
+.final .lede{margin:0 auto 42px}
+form{display:flex;gap:10px;justify-content:center;max-width:480px;margin:0 auto 14px;flex-wrap:wrap}
+input[type=email]{flex:1;min-width:240px;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px 18px;color:var(--ink);font-size:15px;font-family:var(--sans);transition:border-color .2s;min-height:52px}
+input[type=email]:focus{outline:none;border-color:var(--gold)}
+input[type=email]::placeholder{color:var(--dim)}
+.form-msg{font-family:var(--mono);font-size:13px;min-height:22px;margin-top:8px}
+.form-msg.ok{color:var(--green)}
+.form-msg.err{color:var(--red)}
+
+/* sticky bar */
+.sticky{position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(10,10,15,.94);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:12px 0;transform:translateY(110%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.sticky.show{transform:translateY(0)}
+.sticky .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.sticky p{font-size:14.5px;color:var(--muted)}
+.sticky p b{color:var(--ink)}
+.sticky .btn{padding:11px 26px;font-size:14px;min-height:44px;animation:none}
+
+footer{padding:44px 0 110px;border-top:1px solid var(--border);color:var(--dim);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .btn-primary,.badge .dot{animation:none}
+  html{scroll-behavior:auto}
+}
+@media(max-width:860px){
+  .problems,.gates{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .step{flex-direction:row;gap:18px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top" style="color:var(--ink);text-decoration:none">
+      <svg width="24" height="24" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#14141d" stroke="#262633"/><path d="M8 22l8-14 8 14" stroke="#f5c542" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Algorithmic&nbsp;<span>Gold</span>
+    </a>
+    <a href="#get" class="nav-cta">Get the Standard</a>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="grid-bg"></div>
+  <div class="wrap hero-inner">
+    <div class="badge"><span class="dot"></span>6 GATES · 5 FRESH SEEDS · 1 FROZEN HOLDOUT</div>
+    <h1>Done is a claim.<br><span class="g">GOLD is a receipt.</span></h1>
+    <p class="sub">The verification standard for AI work. A procedure only earns <b>GOLD</b> when its gains are proven by a signal it can't game — and it still beats a strong, fair baseline. <b>No mocked runs. Real outcomes only.</b></p>
+    <div class="cta-row">
+      <a href="#get" class="btn btn-primary">Get the Standard →</a>
+      <a href="#proof" class="btn btn-ghost">See the receipts</a>
+    </div>
+    <p class="microcopy">Free · Open standard · Runs anywhere Python runs</p>
+
+    <div class="stats rv">
+      <div class="stat"><div class="num" data-count="6">0</div><div class="lbl">hard gates before any commit</div></div>
+      <div class="stat"><div class="num green" data-count="5" data-suffix="+1">0</div><div class="lbl">independent fresh seeds + frozen holdout</div></div>
+      <div class="stat"><div class="num" data-count="30.9" data-decimals="1" data-suffix="%">0</div><div class="lbl">measured gain vs. tuned single-call baseline</div></div>
+      <div class="stat"><div class="num" data-count="0">0</div><div class="lbl">tolerance for mocked or faked data</div></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="tag rv">The problem</div>
+    <h2 class="rv">Everyone ships "done."<br>Nobody ships proof.</h2>
+    <p class="lede rv">"It works" is the most expensive sentence in software. Three failure modes the standard kills on contact:</p>
+    <div class="problems">
+      <div class="pcard rv"><span class="icon">FAIL_01</span><h3>The vibes demo</h3><p>One cherry-picked run, one lucky seed, declared victory. Single runs prove nothing — variance hides in the noise floor.</p></div>
+      <div class="pcard rv"><span class="icon">FAIL_02</span><h3>The gaming procedure</h3><p>Optimize the scoreboard, not the outcome. Goodhart's law ships to production and the real metric never moves.</p></div>
+      <div class="pcard rv"><span class="icon">FAIL_03</span><h3>The strawman baseline</h3><p>"We beat the naive approach." Against a weak baseline, anything looks like genius. A fair fight needs a tuned opponent.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="tag rv">The standard</div>
+    <h2 class="rv">Six gates. All must pass.<br>One failure = no commit.</h2>
+    <p class="lede rv">The <code style="font-family:var(--mono);font-size:14px;color:var(--gold)">judge()</code> runs every candidate through all six — automatically, before anything is allowed to be called done.</p>
+    <div class="gates">
+      <div class="gate rv"><div class="no">GATE 01 — COMMIT</div><h3>Frozen before the evidence exists</h3><p>Both procedures are fingerprinted and committed <em>before</em> the sealed test seed is drawn. No post-hoc tuning, no moving goalposts.</p></div>
+      <div class="gate rv"><div class="no">GATE 02 — PARITY</div><h3>Same instances, same budget</h3><p>Candidate and baseline see identical instances with identical compute budgets. <code>random.Random(1)</code> for both. No resource cheating.</p></div>
+      <div class="gate rv"><div class="no">GATE 03 — PLACEBO</div><h3>Gain must come from the instance</h3><p>Scored against mismatched hidden truths. If the gain survives a placebo, it's just the prior — not skill.</p></div>
+      <div class="gate rv"><div class="no">GATE 04 — PAIRED WIN</div><h3>Statistically significant, effect-sized</h3><p>Bootstrap lower confidence bound on the paired difference must clear zero. Bonferroni-corrected across slices. Luck doesn't pass.</p></div>
+      <div class="gate rv"><div class="no">GATE 05 — GOODHART</div><h3>Truth gain must not lag proxy gain</h3><p>If the optimizable proxy improves faster than the sealed truth signal, the procedure is gaming its own scoreboard. Flagged, not shipped.</p></div>
+      <div class="gate rv"><div class="no">GATE 06 — COST</div><h3>No winning by burning compute</h3><p>Candidate runtime is held against a slack multiple of the baseline. Victory by brute force is a cost failure, not a win.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="tag rv">The receipts</div>
+    <h2 class="rv">Real runs. Real numbers.<br>Nothing mocked.</h2>
+    <p class="lede rv">From a live benchmark of an iterative refinement loop against a tuned single-call baseline — 30 prompt × spec pairs, every outcome an actual API response scored by a frozen rubric.</p>
+
+    <div class="proof-box rv">
+      <div class="proof-head"><span class="r r1"></span><span class="r r2"></span><span class="r r3"></span><span class="title">results.json — frozen, verifiable, reproducible</span></div>
+      <div class="term">
+        <div class="ln"><span>naive_mean</span><span class="val r">0.6669</span></div>
+        <div class="ln"><span>specaware_mean (tuned baseline)</span><span class="val r">0.5715</span></div>
+        <div class="ln"><span>bossloop_mean (candidate)</span><span class="val g">0.8743</span></div>
+        <div class="ln"><span>judge_boss_mean vs judge_naive_mean</span><span class="val g">4.73 &gt; 4.20</span></div>
+        <div class="ln"><span>goodhart_flags</span><span class="val y">11 (flagged, not hidden)</span></div>
+        <div class="ln"><span>corr(score, judge)</span><span class="val r">−0.144 (honest second metric)</span></div>
+      </div>
+      <div class="bars">
+        <div class="bar-row">
+          <div class="meta"><span>Naive single call</span><b style="color:var(--dim)">0.667</b></div>
+          <div class="bar-track"><div class="bar-fill b1" data-w="66.7%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="meta"><span>Spec-aware tuned baseline</span><b style="color:var(--dim)">0.571</b></div>
+          <div class="bar-track"><div class="bar-fill b1" data-w="57.1%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="meta"><span>BossLoop (gated candidate)</span><b style="color:var(--gold)">0.874</b></div>
+          <div class="bar-track"><div class="bar-fill b2" data-w="87.4%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="honesty rv">
+      <b>Why the negative numbers are here:</b> a correlation of −0.144 between score and judge means the rubric imperfectly predicts quality — and it stays in the report. Eleven Goodhart flags stay in the report. A standard that hides its failures is just marketing. <b>GOLD reports everything; it only passes what survives.</b>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="tag rv">How the loop runs</div>
+    <h2 class="rv">Stop only when the gate passes.</h2>
+    <p class="lede rv">The standard is a loop, not a report. spec → plan → test → build → verify → review → commit — and verify has teeth.</p>
+    <div class="steps">
+      <div class="step rv"><div class="n">1</div><div><h3>Commit before you see the test</h3><p>Both procedures are fingerprinted. The sealed seed is derived from the commit hash plus fresh entropy — drawn <em>after</em> the code is frozen. Tuning after the fact is structurally impossible.</p></div></div>
+      <div class="step rv"><div class="n">2</div><div><h3>Run the six gates on real outcomes</h3><p>Every truth() score comes from an outcome that actually happened. Synthetic inputs, if any, are labeled. Mocked runs fail by definition — the placebo gate catches them.</p></div></div>
+      <div class="step rv"><div class="n">3</div><div><h3>Five fresh seeds, then the frozen holdout</h3><p>GOLD must hold on five independent seeds — a single lucky pass never counts. Then one final run on a holdout set the procedure has never touched. All six, or the loop continues.</p></div></div>
+      <div class="step rv"><div class="n">4</div><div><h3>Commit with the receipt attached</h3><p>The full report — wins, losses, flags, bounds, cost — ships with the commit. The receipt is the deliverable. "Trust me" is not a deliverable.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="get">
+  <div class="wrap">
+    <div class="tag rv" style="margin-bottom:18px">Join the standard</div>
+    <h2 class="rv">Stop shipping claims.<br>Start shipping <span style="color:var(--gold)">receipts.</span></h2>
+    <p class="lede rv">Get the <code style="font-family:var(--mono);color:var(--gold)">judge()</code> harness, the six-gate checklist, and the seed protocol. One file. Standard library only. Runs on your phone.</p>
+    <form id="waitlist" novalidate>
+      <input type="email" id="email" placeholder="you@domain.com" autocomplete="email" required>
+      <button type="submit" class="btn btn-primary">Get the Standard</button>
+    </form>
+    <p class="form-msg" id="form-msg"></p>
+    <p class="microcopy">Free · No spam · The standard belongs to everyone</p>
+  </div>
+</section>
+
+<div class="sticky" id="sticky">
+  <div class="wrap">
+    <p><b>Done is a claim.</b> GOLD is a receipt.</p>
+    <a href="#get" class="btn btn-primary">Get the Standard →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>Algorithmic Gold — the verification standard for AI work. Real outcomes. No mocked runs.</div>
+    <div><a href="#top">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // scroll reveal
+  var els = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window && !reduce) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          if (e.target.classList.contains('stats')) animateCounters();
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.15});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+    animateCounters();
+  }
+
+  // counters
+  function animateCounters(){
+    document.querySelectorAll('.num[data-count]').forEach(function(el){
+      if (el.dataset.done) return;
+      el.dataset.done = '1';
+      var target = parseFloat(el.dataset.count);
+      var dec = parseInt(el.dataset.decimals || '0', 10);
+      var suffix = el.dataset.suffix || '';
+      if (reduce) { el.textContent = target.toFixed(dec) + suffix; return; }
+      var start = null, dur = 1400;
+      function tick(ts){
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = (target * eased).toFixed(dec) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toFixed(dec) + suffix;
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  // bars
+  if ('IntersectionObserver' in window && !reduce) {
+    var bo = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          e.target.style.width = e.target.dataset.w;
+          bo.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.4});
+    document.querySelectorAll('.bar-fill').forEach(function(b){ bo.observe(b); });
+  } else {
+    document.querySelectorAll('.bar-fill').forEach(function(b){ b.style.width = b.dataset.w; });
+  }
+
+  // sticky bar
+  var sticky = document.getElementById('sticky');
+  var shown = false;
+  window.addEventListener('scroll', function(){
+    var past = window.scrollY > 700;
+    var atEnd = window.scrollY > document.body.scrollHeight - window.innerHeight - 200;
+    if (past && !atEnd && !shown) { sticky.classList.add('show'); shown = true; }
+    else if ((!past || atEnd) && shown) { sticky.classList.remove('show'); shown = false; }
+  }, {passive: true});
+
+  // form
+  var form = document.getElementById('waitlist');
+  var email = document.getElementById('email');
+  var msg = document.getElementById('form-msg');
+  var KEY = 'ag_waitlist';
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
+      msg.textContent = '✗ enter a valid email';
+      msg.className = 'form-msg err';
+      email.focus();
+      return;
+    }
+    var list = [];
+    try { list = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(_) { list = []; }
+    if (list.indexOf(v) === -1) list.push(v);
+    try { localStorage.setItem(KEY, JSON.stringify(list)); } catch(_) {}
+    msg.textContent = '✓ you\'re on the list — #' + list.length + ' in line. the harness is coming.';
+    msg.className = 'form-msg ok';
+    email.value = '';
+  });
+})();
+</script>
+</body>
+</html>

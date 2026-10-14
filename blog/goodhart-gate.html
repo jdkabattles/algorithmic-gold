@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Goodhart gate: when your metric starts gaming you back — Algorithmic Gold Blog</title>
+<meta name="description" content="Goodhart's law is not a warning label — it's a gate. How the proxy-vs-truth check catches procedures that optimize the scoreboard instead of the outcome.">
+<meta property="og:title" content="The Goodhart gate: when your metric starts gaming you back">
+<meta property="og:description" content="Goodhart's law is not a warning label — it's a gate. How the proxy-vs-truth check catches procedures that optimize the scoreboard instead of the outcome.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jdkabattles.github.io/algorithmic-gold/blog/goodhart-gate.html">
+<meta property="og:image" content="https://jdkabattles.github.io/algorithmic-gold/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://jdkabattles.github.io/algorithmic-gold/blog/goodhart-gate.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0f'/%3E%3Cpath d='M8 22l8-14 8 14' stroke='%23f5c542' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E'>
+<style>
+:root{--bg:#0a0a0f;--bg2:#0f0f16;--surface:#14141d;--surface2:#1a1a26;--ink:#f4f4f6;--muted:#9a9aa8;--dim:#6b6b7a;--border:#262633;--gold:#f5c542;--green:#4ade80;--red:#f87171;--mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.75;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:#000}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;background:rgba(10,10,15,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1080px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:-.02em;color:var(--ink)}
+.logo span{color:var(--gold)}
+.navlinks{display:flex;gap:22px;font-size:14px}
+.navlinks a{color:var(--muted)}
+.navlinks a:hover,.navlinks a.active{color:var(--gold);text-decoration:none}
+article{padding:70px 0 60px}
+.post-meta{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--dim);margin-bottom:18px;flex-wrap:wrap}
+.post-meta .cat{color:var(--gold);border:1px solid rgba(245,197,66,.3);padding:2px 9px;border-radius:6px}
+h1{font-size:clamp(30px,5vw,42px);line-height:1.15;letter-spacing:-.03em;font-weight:800;margin-bottom:26px}
+h2{font-size:23px;letter-spacing:-.02em;margin:44px 0 14px;font-weight:700}
+p{color:#d5d5dc;font-size:16.5px;margin-bottom:20px}
+blockquote{margin:28px 0;padding:18px 24px;border-left:3px solid var(--gold);background:var(--surface);border-radius:0 12px 12px 0;color:var(--muted);font-size:15.5px}
+blockquote b{color:var(--ink)}
+.term{margin:28px 0;background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.term-head{display:flex;gap:7px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--surface)}
+.term-head .r{width:10px;height:10px;border-radius:50%}
+.term-head .r1{background:#f87171}.term-head .r2{background:#fbbf24}.term-head .r3{background:#4ade80}
+.term-head .t{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:8px}
+.term pre{padding:20px 22px;font-family:var(--mono);font-size:13px;line-height:1.8;overflow-x:auto;color:var(--muted)}
+.term .g{color:var(--green)}.term .r{color:var(--red)}.term .y{color:var(--gold)}
+.callout{margin:32px 0;padding:22px 26px;border:1px solid rgba(245,197,66,.3);border-radius:14px;background:rgba(245,197,66,.04);font-size:15.5px;color:var(--muted)}
+.callout b{color:var(--gold)}
+.pager{display:flex;justify-content:space-between;margin:60px 0 90px;font-size:14.5px;gap:14px;flex-wrap:wrap}
+footer{border-top:1px solid var(--border);padding:34px 0 70px;color:var(--dim);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1080px}
+footer a{color:var(--muted)}
+@media(max-width:640px){.navlinks{gap:14px;font-size:13px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="../" style="text-decoration:none"><svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#14141d" stroke="#262633"/><path d="M8 22l8-14 8 14" stroke="#f5c542" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Algorithmic&nbsp;<span>Gold</span></a>
+  <div class="navlinks"><a href="../">Standard</a><a href="./" class="active">Blog</a><a href="../products/">Products</a></div>
+</div></nav>
+
+<article><div class="wrap">
+  <div class="post-meta"><span>2026-10-08</span><span class="cat">GOODHART</span><span>7 min read</span></div>
+  <h1>The Goodhart gate: when your metric starts gaming you back</h1>
+
+  <p>You know the sentence. <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law" target="_blank" rel="noopener">Goodhart's law</a>: <b>"When a measure becomes a target, it ceases to be a good measure."</b> Everyone nods at it in meetings, then ships the metric as a target anyway. This post is about why the standard treats it as a hard gate rather than a cautionary quote.</p>
+
+  <h2>The trap is structural, not moral</h2>
+
+  <p>Nobody games a metric on purpose. It happens because you optimize the one number you can see, and the one number you can see is never the whole truth. The scoreboard goes up; the actual outcome doesn't move. This is the same phenomenon DeepMind catalogued as <a href="https://deepmind.google/discover/blog/specification-gaming-the-flip-side-of-ai-ingenuity/" target="_blank" rel="noopener">specification gaming</a> — agents that satisfy the letter of the objective while violating its spirit. The letter is the proxy. The spirit is the truth.</p>
+
+  <p>In the GOLD framework, every domain can define an optional <b>proxy</b> — a signal the procedure is allowed to optimize — alongside the sealed <b>truth</b>. Gate 05 compares them: gain on the proxy must not outrun gain on truth by more than a tolerance. If the proxy improved 0.5 while truth improved 0.1, the procedure is climbing the scoreboard, not moving the outcome. The gate fails. It doesn't matter how good the proxy number looks.</p>
+
+  <h2>What the check looks like in the report</h2>
+
+  <div class="term">
+    <div class="term-head"><span class="r r1"></span><span class="r r2"></span><span class="r r3"></span><span class="t">gate 05 — proxy vs truth</span></div>
+<pre>truth_gain (mean across slices) = 0.1731
+proxy_gain (mean across slices) = 0.1580
+
+check: (proxy - truth) &lt;= 0.25 * max(|truth|, 1e-9)
+<span class="g">goodhart_ok: True</span></pre>
+  </div>
+
+  <p>When a procedure does outrun its own scoreboard, the report says so — and the flag stays in the report forever. That's the part people find uncomfortable. In the real benchmark behind this site, <b>11 Goodhart flags were recorded</b> and none of them were deleted. The correlation between the rubric score and the judge score came out at <b>−0.144</b> — meaning the score imperfectly predicts quality — and that negative number stayed in the summary too.</p>
+
+  <blockquote><b>The rule:</b> a standard that hides its failures is just marketing. GOLD reports everything; it only passes what survives.</blockquote>
+
+  <h2>Why tolerance, not equality</h2>
+
+  <p>Gate 05 isn't "proxy gain must equal truth gain." That would fail honest procedures that legitimately improve both. The check allows the proxy to run slightly ahead — within a tolerance of 25% of the truth gain — because some divergence is expected noise. What it refuses is the large gap: proxy racing ahead by multiples while truth barely moves. That shape only appears when a procedure has found a shortcut through the scoreboard.</p>
+
+  <div class="callout"><b>The takeaway:</b> optimize the proxy, sure — but the standard watches the truth signal at the same time. When they diverge, the gate catches it before you ship a number that's improving itself instead of the product.</div>
+</div></article>
+
+<div class="wrap"><div class="pager">
+  <a href="./">← All posts</a>
+  <a href="../products/">Products →</a>
+</div></div>
+
+<footer><div class="wrap">
+  <div>Algorithmic Gold — the verification standard for AI work. Real outcomes. No mocked runs.</div>
+  <div><a href="../">Back to the standard ↑</a></div>
+</div></footer>
+</body>
+</html>

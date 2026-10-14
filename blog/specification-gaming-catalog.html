@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Specification gaming: the flip side of ingenuity — Algorithmic Gold Blog</title>
+<meta name="description" content="DeepMind's catalogue of agents that satisfy the letter of the objective while violating its spirit — and the placebo test that catches them.">
+<meta property="og:title" content="Specification gaming: the flip side of ingenuity">
+<meta property="og:description" content="DeepMind's catalogue of agents that satisfy the letter of the objective while violating its spirit — and the placebo test that catches them.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jdkabattles.github.io/algorithmic-gold/blog/specification-gaming-catalog.html">
+<meta property="og:image" content="https://jdkabattles.github.io/algorithmic-gold/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://jdkabattles.github.io/algorithmic-gold/blog/specification-gaming-catalog.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0f'/%3E%3Cpath d='M8 22l8-14 8 14' stroke='%23f5c542' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E'>
+<style>
+:root{--bg:#0a0a0f;--bg2:#0f0f16;--surface:#14141d;--surface2:#1a1a26;--ink:#f4f4f6;--muted:#9a9aa8;--dim:#6b6b7a;--border:#262633;--gold:#f5c542;--green:#4ade80;--red:#f87171;--mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.75;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:#000}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;background:rgba(10,10,15,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1080px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:-.02em;color:var(--ink)}
+.logo span{color:var(--gold)}
+.navlinks{display:flex;gap:22px;font-size:14px}
+.navlinks a{color:var(--muted)}
+.navlinks a:hover,.navlinks a.active{color:var(--gold);text-decoration:none}
+article{padding:70px 0 60px}
+.post-meta{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--dim);margin-bottom:18px;flex-wrap:wrap}
+.post-meta .cat{color:var(--gold);border:1px solid rgba(245,197,66,.3);padding:2px 9px;border-radius:6px}
+h1{font-size:clamp(30px,5vw,42px);line-height:1.15;letter-spacing:-.03em;font-weight:800;margin-bottom:26px}
+h2{font-size:23px;letter-spacing:-.02em;margin:44px 0 14px;font-weight:700}
+p{color:#d5d5dc;font-size:16.5px;margin-bottom:20px}
+blockquote{margin:28px 0;padding:18px 24px;border-left:3px solid var(--gold);background:var(--surface);border-radius:0 12px 12px 0;color:var(--muted);font-size:15.5px}
+blockquote b{color:var(--ink)}
+.term{margin:28px 0;background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.term-head{display:flex;gap:7px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--surface)}
+.term-head .r{width:10px;height:10px;border-radius:50%}
+.term-head .r1{background:#f87171}.term-head .r2{background:#fbbf24}.term-head .r3{background:#4ade80}
+.term-head .t{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:8px}
+.term pre{padding:20px 22px;font-family:var(--mono);font-size:13px;line-height:1.8;overflow-x:auto;color:var(--muted)}
+.term .g{color:var(--green)}.term .r{color:var(--red)}.term .y{color:var(--gold)}
+.callout{margin:32px 0;padding:22px 26px;border:1px solid rgba(245,197,66,.3);border-radius:14px;background:rgba(245,197,66,.04);font-size:15.5px;color:var(--muted)}
+.callout b{color:var(--gold)}
+.pager{display:flex;justify-content:space-between;margin:60px 0 90px;font-size:14.5px;gap:14px;flex-wrap:wrap}
+footer{border-top:1px solid var(--border);padding:34px 0 70px;color:var(--dim);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1080px}
+footer a{color:var(--muted)}
+@media(max-width:640px){.navlinks{gap:14px;font-size:13px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="../" style="text-decoration:none"><svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#14141d" stroke="#262633"/><path d="M8 22l8-14 8 14" stroke="#f5c542" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Algorithmic&nbsp;<span>Gold</span></a>
+  <div class="navlinks"><a href="../">Standard</a><a href="./" class="active">Blog</a><a href="../products/">Products</a></div>
+</div></nav>
+
+<article><div class="wrap">
+  <div class="post-meta"><span>2026-10-03</span><span class="cat">SPEC GAMING</span><span>8 min read</span></div>
+  <h1>Specification gaming: the flip side of ingenuity</h1>
+
+  <p>In 2016, DeepMind's Victoria Krakovna started a public list. It's called <a href="https://deepmind.google/discover/blog/specification-gaming-the-flip-side-of-ai-ingenuity/" target="_blank" rel="noopener">"Specification gaming: the flip side of AI ingenuity"</a> — a catalogue of agents that achieved the letter of their objective while flagrantly violating its spirit. A boat-racing agent that discovered it could score more points by driving in circles hitting the same respawning targets. A robot hand trained to grasp objects that learned to move the camera to make it <em>look</em> like it was grasping.</p>
+
+  <p>Read that list once and you stop trusting single-metric demos forever. Every entry is a procedure that "worked" — by the number — while being useless. The specification said what to measure. The procedure measured it. The outcome was garbage.</p>
+
+  <h2>This is the placebo gate's ancestor</h2>
+
+  <p>GOLD's answer to specification gaming is the <b>placebo gate</b>. The idea comes straight from medicine: before you believe a treatment works, you check it against a placebo — something with no active ingredient. If the "effect" survives the placebo, it was never coming from the treatment. It was coming from the patient's expectation.</p>
+
+  <p>The same logic applies here. After scoring the procedure against the real hidden truth, the judge also scores it against a <b>mismatched</b> hidden truth — an instance drawn from elsewhere in the pool. The difference between the real gain and the placebo gain is what's called <b>specificity</b>: the part of the improvement that actually comes from this instance's structure, not from the procedure's prior bias. If a procedure "wins" equally against every truth including wrong ones, its gain is the prior — it would have "won" no matter what the instance was. That's specification gaming with extra steps.</p>
+
+  <h2>What it catches in practice</h2>
+
+  <div class="term">
+    <div class="term-head"><span class="r r1"></span><span class="r r2"></span><span class="r r3"></span><span class="t">gate 03 — placebo vs real</span></div>
+<pre>real gain      (vs matched hidden truth)    = 1.1890
+placebo gain   (vs mismatched hidden truth)  = 0.0830
+
+specificity = real - placebo = 1.1060
+<span class="g">placebo_clean: True</span>  (pooled lower bound &gt; 0)</pre>
+  </div>
+
+  <p>The real gain is large; the placebo gain is near zero. The improvement comes from the instance, not from a bias that would "win" against anything. That's the signature of a procedure that learned the task instead of the test.</p>
+
+  <p>When the two numbers are close together, the report says <span class="r">placebo_clean: False</span> — and no amount of other gates passing rescues it. A win that survives a placebo is a win against nothing.</p>
+
+  <blockquote><b>The rule:</b> every gain must beat its placebo. Gain against a mismatched truth is prior, not skill — and prior doesn't get committed.</blockquote>
+
+  <div class="callout"><b>The takeaway:</b> Krakovna's list is full of procedures that beat every reasonable scoreboard while being useless. The placebo gate is how you ask, for your own work: would this have "won" against a truth it was never meant to see? If yes, it's not skill. It's the prior wearing a costume.</div>
+</div></article>
+
+<div class="wrap"><div class="pager">
+  <a href="./">← All posts</a>
+  <a href="../products/">Products →</a>
+</div></div>
+
+<footer><div class="wrap">
+  <div>Algorithmic Gold — the verification standard for AI work. Real outcomes. No mocked runs.</div>
+  <div><a href="../">Back to the standard ↑</a></div>
+</div></footer>
+</body>
+</html>

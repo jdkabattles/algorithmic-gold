@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your test set is contaminated. Act like it. — Algorithmic Gold Blog</title>
+<meta name="description" content="Black-box models memorize their evaluation sets — it's been proven. Five fresh sealed seeds plus one frozen holdout is the minimum honest protocol.">
+<meta property="og:title" content="Your test set is contaminated. Act like it.">
+<meta property="og:description" content="Black-box models memorize their evaluation sets — it's been proven. Five fresh sealed seeds plus one frozen holdout is the minimum honest protocol.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jdkabattles.github.io/algorithmic-gold/blog/contamination-holdout.html">
+<meta property="og:image" content="https://jdkabattles.github.io/algorithmic-gold/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://jdkabattles.github.io/algorithmic-gold/blog/contamination-holdout.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0f'/%3E%3Cpath d='M8 22l8-14 8 14' stroke='%23f5c542' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E'>
+<style>
+:root{--bg:#0a0a0f;--bg2:#0f0f16;--surface:#14141d;--surface2:#1a1a26;--ink:#f4f4f6;--muted:#9a9aa8;--dim:#6b6b7a;--border:#262633;--gold:#f5c542;--green:#4ade80;--red:#f87171;--mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.75;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:#000}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;background:rgba(10,10,15,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:50}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1080px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;letter-spacing:-.02em;color:var(--ink)}
+.logo span{color:var(--gold)}
+.navlinks{display:flex;gap:22px;font-size:14px}
+.navlinks a{color:var(--muted)}
+.navlinks a:hover,.navlinks a.active{color:var(--gold);text-decoration:none}
+article{padding:70px 0 60px}
+.post-meta{display:flex;gap:14px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--dim);margin-bottom:18px;flex-wrap:wrap}
+.post-meta .cat{color:var(--gold);border:1px solid rgba(245,197,66,.3);padding:2px 9px;border-radius:6px}
+h1{font-size:clamp(30px,5vw,42px);line-height:1.15;letter-spacing:-.03em;font-weight:800;margin-bottom:26px}
+h2{font-size:23px;letter-spacing:-.02em;margin:44px 0 14px;font-weight:700}
+p{color:#d5d5dc;font-size:16.5px;margin-bottom:20px}
+blockquote{margin:28px 0;padding:18px 24px;border-left:3px solid var(--gold);background:var(--surface);border-radius:0 12px 12px 0;color:var(--muted);font-size:15.5px}
+blockquote b{color:var(--ink)}
+.term{margin:28px 0;background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.term-head{display:flex;gap:7px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--surface)}
+.term-head .r{width:10px;height:10px;border-radius:50%}
+.term-head .r1{background:#f87171}.term-head .r2{background:#fbbf24}.term-head .r3{background:#4ade80}
+.term-head .t{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:8px}
+.term pre{padding:20px 22px;font-family:var(--mono);font-size:13px;line-height:1.8;overflow-x:auto;color:var(--muted)}
+.term .g{color:var(--green)}.term .r{color:var(--red)}.term .y{color:var(--gold)}
+.callout{margin:32px 0;padding:22px 26px;border:1px solid rgba(245,197,66,.3);border-radius:14px;background:rgba(245,197,66,.04);font-size:15.5px;color:var(--muted)}
+.callout b{color:var(--gold)}
+.pager{display:flex;justify-content:space-between;margin:60px 0 90px;font-size:14.5px;gap:14px;flex-wrap:wrap}
+footer{border-top:1px solid var(--border);padding:34px 0 70px;color:var(--dim);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1080px}
+footer a{color:var(--muted)}
+@media(max-width:640px){.navlinks{gap:14px;font-size:13px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="../" style="text-decoration:none"><svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#14141d" stroke="#262633"/><path d="M8 22l8-14 8 14" stroke="#f5c542" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Algorithmic&nbsp;<span>Gold</span></a>
+  <div class="navlinks"><a href="../">Standard</a><a href="./" class="active">Blog</a><a href="../products/">Products</a></div>
+</div></nav>
+
+<article><div class="wrap">
+  <div class="post-meta"><span>2026-09-26</span><span class="cat">HOLDOUT</span><span>6 min read</span></div>
+  <h1>Your test set is contaminated. Act like it.</h1>
+
+  <p>There's a paper — <a href="https://arxiv.org/abs/2310.17623" target="_blank" rel="noopener">"Proving Test Set Contamination in Black Box Language Models"</a> — that does exactly what the title says. Without any access to the model's training data, the authors demonstrate that a black-box model has memorized its evaluation set. The method works on closed commercial APIs. The conclusion is uncomfortable: <b>if a benchmark is public and popular, assume it's in the training data.</b></p>
+
+  <p>The mechanism behind it is plain <a href="https://en.wikipedia.org/wiki/Overfitting" target="_blank" rel="noopener">overfitting</a> — except at industrial scale. A model that has seen the test doesn't perform well on the task. It performs well on the <em>answers</em>. Every number downstream inherits the contamination.</p>
+
+  <h2>The seal-and-holdout protocol</h2>
+
+  <p>GOLD's seed protocol is built directly on this reality. Here's the exact sequence, and why each step exists:</p>
+
+  <p><b>1. Commit before you look.</b> Both procedures are fingerprinted (SHA-256 of their source) before the test seed exists. The seed is derived from the commit hash plus fresh entropy — drawn <em>after</em> the code is frozen. This closes <a href="https://en.wikipedia.org/wiki/Data_dredging" target="_blank" rel="noopener">data dredging</a> and p-hacking: there is no window in which you can tune after seeing the test.</p>
+
+  <p><b>2. Five fresh sealed seeds.</b> Each seed generates its own instances from the domain's sample function. The procedure must pass all six gates on five independent seeds. This isn't "run it five times and take the best" — it's five independent sealed experiments, each of which must independently earn GOLD.</p>
+
+  <p><b>3. One frozen holdout.</b> After the five seeds pass, one final run on instances generated from a holdout seed that was fixed at the start and never used during development. If the procedure overfit to the development seeds, this is where it dies. It can't game what it has never seen.</p>
+
+  <div class="term">
+    <div class="term-head"><span class="r r1"></span><span class="r r2"></span><span class="r r3"></span><span class="t">seed protocol — verification gate</span></div>
+<pre>fresh_seed_0: GOLD=True
+fresh_seed_1: GOLD=True
+fresh_seed_2: GOLD=True
+fresh_seed_3: GOLD=True
+fresh_seed_4: GOLD=True
+holdout:      GOLD=True   <span class="y">(frozen, never touched)</span>
+
+<span class="g">GATE: True</span>  — 6/6 runs passed</pre>
+  </div>
+
+  <p>A single GOLD True never counts. Not because one pass is impossible — but because one pass is consistent with luck, and luck doesn't survive a holdout. The protocol is deliberately paranoid: it assumes the procedure <em>wants</em> to overfit and gives it every opportunity to try.</p>
+
+  <blockquote><b>The rule:</b> the loop stops only when all five fresh seeds and the frozen holdout pass. Not five out of six. Not "it passed yesterday."</blockquote>
+
+  <div class="callout"><b>The takeaway:</b> contamination isn't a hypothetical for popular benchmarks — it's been demonstrated on black-box APIs. The honest response isn't better benchmarks. It's a protocol that assumes the test is compromised and demands proof the procedure didn't just memorize it.</div>
+</div></article>
+
+<div class="wrap"><div class="pager">
+  <a href="./">← All posts</a>
+  <a href="../products/">Products →</a>
+</div></div>
+
+<footer><div class="wrap">
+  <div>Algorithmic Gold — the verification standard for AI work. Real outcomes. No mocked runs.</div>
+  <div><a href="../">Back to the standard ↑</a></div>
+</div></footer>
+</body>
+</html>

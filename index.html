@@ -156,6 +156,28 @@ input[type=email]::placeholder{color:var(--dim)}
 .share-msg.ok{color:var(--green)}
 @media(max-width:560px){.sh span{display:none}.sh{padding:12px}}
 
+/* patterns */
+.patterns{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pat{display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 22px 18px;color:var(--ink);text-decoration:none;transition:border-color .2s,transform .2s}
+.pat:hover{border-color:var(--gold);transform:translateY(-3px);text-decoration:none}
+.pat-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.pat-gate{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--gold);border:1px solid rgba(245,197,66,.3);background:rgba(245,197,66,.06);padding:3px 9px;border-radius:6px}
+.pat-arrow{color:var(--dim);font-size:15px}
+.pat:hover .pat-arrow{color:var(--gold)}
+.pat h3{font-size:16.5px;margin-bottom:8px;letter-spacing:-.01em}
+.pat p{color:var(--muted);font-size:13.5px;line-height:1.55}
+.pat-src{display:block;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:12px;word-break:break-all}
+.pattern-foot{margin-top:30px;padding:22px 26px;border:1px solid rgba(245,197,66,.3);border-radius:12px;background:rgba(245,197,66,.04);font-size:15px;color:var(--muted);line-height:1.7}
+.pattern-foot b{color:var(--gold)}
+
+/* prior art */
+.prior{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.pa{display:flex;justify-content:space-between;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 20px;color:var(--ink);text-decoration:none;transition:border-color .2s,transform .2s}
+.pa:hover{border-color:var(--gold);transform:translateX(3px);text-decoration:none}
+.pa b{font-family:var(--mono);font-size:14px;font-weight:600}
+.pa span{font-size:12.5px;color:var(--dim);white-space:nowrap}
+@media(max-width:860px){.patterns{grid-template-columns:1fr}.prior{grid-template-columns:1fr}}
+
 /* sticky bar */
 .sticky{position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(10,10,15,.94);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:12px 0;transform:translateY(110%);transition:transform .35s cubic-bezier(.22,1,.36,1)}
 .sticky.show{transform:translateY(0)}
@@ -279,6 +301,95 @@ footer a{color:var(--muted)}
 
     <div class="honesty rv">
       <b>Why the negative numbers are here:</b> a correlation of −0.144 between score and judge means the rubric imperfectly predicts quality — and it stays in the report. Eleven Goodhart flags stay in the report. A standard that hides its failures is just marketing. <b>GOLD reports everything; it only passes what survives.</b>
+    </div>
+  </div>
+</section>
+
+<section id="pattern" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="tag rv">The algorithm — the patterns that make gold</div>
+    <h2 class="rv">We didn't invent these.<br>We enforce them.</h2>
+    <p class="lede rv">Every gate in GOLD is a named, published pattern from statistics and AI evaluation. The standard's job is not novelty — it's making sure none of them get skipped under deadline pressure. Sources are linked; follow them.</p>
+
+    <div class="patterns">
+      <a class="pat rv" href="https://en.wikipedia.org/wiki/Goodhart%27s_law" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">GATE 05</span><span class="pat-arrow">↗</span></div>
+        <h3>Goodhart's Law</h3>
+        <p>When a measure becomes a target, it ceases to be a good measure. GOLD checks that gain on the optimizable proxy never outruns gain on the sealed truth signal.</p>
+        <span class="pat-src">wikipedia.org/wiki/Goodhart's_law</span>
+      </a>
+      <a class="pat rv" href="https://deepmind.google/discover/blog/specification-gaming-the-flip-side-of-ai-ingenuity/" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">GATE 03 + 05</span><span class="pat-arrow">↗</span></div>
+        <h3>Specification gaming</h3>
+        <p>DeepMind's catalogue of agents achieving the letter of the objective while violating its spirit. The placebo gate is designed to catch exactly this: gain against a mismatched truth is prior, not skill.</p>
+        <span class="pat-src">deepmind.google — Krakovna et al.</span>
+      </a>
+      <a class="pat rv" href="https://arxiv.org/abs/2310.17623" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">SEEDS + HOLDOUT</span><span class="pat-arrow">↗</span></div>
+        <h3>Test-set contamination</h3>
+        <p>Proving that black-box models have memorized their evaluation sets. GOLD's answer: five fresh sealed seeds plus one frozen holdout the procedure never touched — a single lucky pass never counts.</p>
+        <span class="pat-src">arxiv.org/abs/2310.17623</span>
+      </a>
+      <a class="pat rv" href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">GATE 04</span><span class="pat-arrow">↗</span></div>
+        <h3>Bootstrap confidence bounds</h3>
+        <p>The win is a lower confidence bound on the mean paired difference — not a point estimate. If the interval touches zero, luck is still on the table, and the gate fails.</p>
+        <span class="pat-src">wikipedia.org/wiki/Bootstrapping</span>
+      </a>
+      <a class="pat rv" href="https://en.wikipedia.org/wiki/Bonferroni_correction" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">GATE 04</span><span class="pat-arrow">↗</span></div>
+        <h3>Bonferroni correction</h3>
+        <p>Every extra slice tested multiplies the chance of a false win. α is divided across slices so "it won somewhere" can't quietly become "it won."</p>
+        <span class="pat-src">wikipedia.org/wiki/Bonferroni_correction</span>
+      </a>
+      <a class="pat rv" href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">GATE 04</span><span class="pat-arrow">↗</span></div>
+        <h3>The multiple comparisons problem</h3>
+        <p>The winner's curse: run enough comparisons and noise wins one of them. Leaderboards built on many unreported comparisons are mostly reporting their luck.</p>
+        <span class="pat-src">wikipedia.org/wiki/Multiple_comparisons_problem</span>
+      </a>
+      <a class="pat rv" href="https://en.wikipedia.org/wiki/Data_dredging" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">GATE 01</span><span class="pat-arrow">↗</span></div>
+        <h3>Data dredging / p-hacking</h3>
+        <p>Searching the data until something looks significant. The commit gate closes this structurally: procedures are fingerprinted before the sealed seed exists.</p>
+        <span class="pat-src">wikipedia.org/wiki/Data_dredging</span>
+      </a>
+      <a class="pat rv" href="https://en.wikipedia.org/wiki/Statistical_power" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">ALL GATES</span><span class="pat-arrow">↗</span></div>
+        <h3>Statistical power</h3>
+        <p>Too few samples can't distinguish skill from noise, however real the effect. GOLD fixes n=300 paired instances per slice before the run — sized, not improvised.</p>
+        <span class="pat-src">wikipedia.org/wiki/Statistical_power</span>
+      </a>
+      <a class="pat rv" href="https://en.wikipedia.org/wiki/Overfitting" target="_blank" rel="noopener">
+        <div class="pat-head"><span class="pat-gate">SEEDS + HOLDOUT</span><span class="pat-arrow">↗</span></div>
+        <h3>Overfitting</h3>
+        <p>Winning on the data you tuned against and losing on everything else. The frozen holdout exists solely to catch a procedure that learned the test instead of the task.</p>
+        <span class="pat-src">wikipedia.org/wiki/Overfitting</span>
+      </a>
+    </div>
+
+    <div class="pattern-foot rv">
+      <b>The algorithm, in one line:</b> freeze before you look → give both sides the same fight → score against a sealed truth → demand the paired win survives bootstrap and correction → prove it isn't the prior, the proxy, or the compute budget → then repeat on seeds it has never seen.
+    </div>
+  </div>
+</section>
+
+<section id="prior-art">
+  <div class="wrap">
+    <div class="tag rv">Prior art — the ecosystem we cite</div>
+    <h2 class="rv">Standing on verified shoulders.</h2>
+    <p class="lede rv">GOLD is a standard, not another harness. These are the real, verifiable projects that built the ground it stands on — linked so you can check our work against theirs.</p>
+    <div class="prior">
+      <a class="pa rv" href="https://github.com/EleutherAI/lm-evaluation-harness" target="_blank" rel="noopener"><b>lm-evaluation-harness</b><span>EleutherAI · 14,219★</span></a>
+      <a class="pa rv" href="https://github.com/openai/evals" target="_blank" rel="noopener"><b>openai/evals</b><span>OpenAI · 19,605★</span></a>
+      <a class="pa rv" href="https://github.com/UKGovernmentBEIS/inspect_ai" target="_blank" rel="noopener"><b>inspect_ai</b><span>UK AISI · 3,003★</span></a>
+      <a class="pa rv" href="https://github.com/stanford-crfm/helm" target="_blank" rel="noopener"><b>HELM</b><span>Stanford CRFM · 2,943★</span></a>
+      <a class="pa rv" href="https://github.com/SWE-bench/SWE-bench" target="_blank" rel="noopener"><b>SWE-bench</b><span>Real-task verification · 6,024★</span></a>
+      <a class="pa rv" href="https://github.com/lmarena/arena-hard-auto" target="_blank" rel="noopener"><b>arena-hard-auto</b><span>Automated judging · 1,081★</span></a>
+      <a class="pa rv" href="https://github.com/tatsu-lab/alpaca_eval" target="_blank" rel="noopener"><b>alpaca_eval</b><span>Validated auto-judge · 2,020★</span></a>
+      <a class="pa rv" href="https://github.com/prometheus-eval/prometheus-eval" target="_blank" rel="noopener"><b>Prometheus</b><span>Rubric-based judging · 1,120★</span></a>
+      <a class="pa rv" href="https://github.com/princeton-nlp/LLMBar" target="_blank" rel="noopener"><b>LLMBar</b><span>The adversary cite · 143★</span></a>
+      <a class="pa rv" href="https://github.com/onejune2018/Awesome-LLM-Eval" target="_blank" rel="noopener"><b>Awesome-LLM-Eval</b><span>The eval list · 659★</span></a>
     </div>
   </div>
 </section>

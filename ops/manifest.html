@@ -6,6 +6,15 @@
 <title>ops manifest</title>
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="../icon-512.png">
 <link rel="icon" href="data:,">
 <style>
 :root{--bg:#0a0a0f;--surface:#101018;--surface2:#16161f;--ink:#e8e8ec;--muted:#8a8a96;--dim:#5a5a66;--border:#22222c;--gold:#f5c542;--green:#4ade80;--red:#f87171;--mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace}
@@ -40,6 +49,30 @@ code{background:var(--surface2);padding:1px 5px;border-radius:4px;color:var(--in
 .healthrow .u{color:var(--muted);word-break:break-all}
 footer{margin-top:44px;color:var(--dim);font-size:11px;border-top:1px solid var(--border);padding-top:14px}
 </style>
+<script>
+// Google Search Console / dev-tools surface: console message + resource inventory
+(function(){
+  if (!window.console || !console.info) return;
+  var c = console;
+  c.info('%c ALGORITHMIC GOLD ', 'background:#f5c542;color:#000;font-weight:bold;padding:2px 8px;border-radius:3px;');
+  c.info('%c Done is a claim. GOLD is a receipt. ', 'color:#f5c542;font-size:12px;');
+  c.info('%c Verification standard for AI work — 6 gates, 5 fresh seeds + frozen holdout, real outcomes only.', 'color:#8a8a96;font-size:11px;');
+  c.info('%c Page resources: ', 'color:#8a8a96;font-size:11px;');
+  var res = [];
+  if (document.querySelector('link[rel="manifest"]')) res.push('manifest (PWA installable)');
+  if (document.querySelector('link[rel="apple-touch-icon"]')) res.push('apple-touch-icon (180x180)');
+  if (document.querySelector('link[rel="icon"][sizes*="192"]')) res.push('icon-192 (PWA)');
+  if (document.querySelector('link[rel="icon"][sizes*="512"]')) res.push('icon-512 (PWA)');
+  if (document.querySelector('meta[name="theme-color"]')) res.push('theme-color');
+  if (document.querySelector('meta[http-equiv="Content-Security-Policy"]')) res.push('CSP (static hardening)');
+  if (document.querySelector('meta[http-equiv="X-Content-Type-Options"]')) res.push('nosniff');
+  if (document.querySelector('meta[http-equiv="X-Frame-Options"]')) res.push('frame-options (clickjacking)');
+  if (document.querySelector('link[rel="canonical"]')) res.push('canonical URL');
+  if (document.querySelector('html[lang]')) res.push('lang attribute (i18n)');
+  c.info('  ' + (res.length ? res.join(' · ') : 'none detected'), 'color:#4ade80;font-size:11px;');
+  c.info('%c Repo: github.com/jdkabattles/algorithmic-gold  ·  Standard: jdkabattles.github.io/algorithmic-gold/', 'color:#5a5a66;font-size:11px;');
+})();
+</script>
 </head>
 <body>
 

@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# hidden ops surface — not for crawlers
+Disallow: /algorithmic-gold/ops/
+
 Sitemap: https://jdkabattles.github.io/algorithmic-gold/sitemap.xml

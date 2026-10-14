@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ops manifest</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<style>
+:root{--bg:#0a0a0f;--surface:#101018;--surface2:#16161f;--ink:#e8e8ec;--muted:#8a8a96;--dim:#5a5a66;--border:#22222c;--gold:#f5c542;--green:#4ade80;--red:#f87171;--mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.65;padding:32px 20px 80px}
+.wrap{max-width:920px;margin:0 auto}
+h1{font-size:20px;color:var(--gold);letter-spacing:-.01em;margin-bottom:6px}
+h2{font-size:14px;color:var(--gold);margin:34px 0 10px;border-bottom:1px solid var(--border);padding-bottom:6px}
+.sub{color:var(--dim);font-size:11.5px;margin-bottom:26px}
+table{width:100%;border-collapse:collapse;margin:10px 0}
+td,th{padding:5px 9px;border:1px solid var(--border);vertical-align:top;text-align:left;font-size:12px}
+th{background:var(--surface2);color:var(--muted);font-weight:600}
+td.k{color:var(--gold);white-space:nowrap}
+a{color:var(--gold)}
+code{background:var(--surface2);padding:1px 5px;border-radius:4px;color:var(--ink);font-size:11.5px}
+.gate{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:26px;margin:30px auto;max-width:460px;text-align:center}
+.gate h1{margin-bottom:14px}
+.gate input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--ink);font-family:var(--mono);font-size:14px;width:100%;margin-bottom:10px;text-align:center;letter-spacing:.15em}
+.gate input:focus{outline:none;border-color:var(--gold)}
+.gate button{background:var(--gold);color:#000;border:none;border-radius:8px;padding:11px 30px;font-weight:700;font-family:var(--mono);font-size:13px;cursor:pointer;min-height:44px}
+.gate .hint{color:var(--dim);font-size:11px;margin-top:12px}
+.gate .err{color:var(--red);font-size:12px;margin-top:10px;min-height:16px}
+#manifest{display:none}
+.badge{display:inline-block;border:1px solid rgba(245,197,66,.3);color:var(--gold);border-radius:5px;padding:1px 8px;font-size:10.5px;margin-right:6px}
+.warn{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.3);border-radius:10px;padding:14px 18px;color:var(--muted);font-size:12px;margin:14px 0}
+.warn b{color:var(--red)}
+.check{color:var(--green)}
+.fail{color:var(--red)}
+.muted{color:var(--muted)}
+#health{font-size:12px}
+.healthrow{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid var(--border)}
+.healthrow .u{color:var(--muted);word-break:break-all}
+footer{margin-top:44px;color:var(--dim);font-size:11px;border-top:1px solid var(--border);padding-top:14px}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <h1>ops manifest</h1>
+  <div class="sub">restricted — unlisted surface</div>
+  <input type="password" id="pw" placeholder="••••••••" autocomplete="off">
+  <button id="unlock">unlock</button>
+  <div class="err" id="gaterr"></div>
+  <div class="hint">Note: this is a static site. The gate is friction for crawlers and stray visitors, not real security — the source is public. For future Hermes: the manifest is also at the repo root as WEBSITE.md.</div>
+</div>
+
+<div class="wrap" id="manifest">
+
+<h1>Algorithmic Gold — Ops Manifest</h1>
+<div class="sub">crystallized 2026-10-14 · for future Hermes sessions · everything verified live, not assumed</div>
+
+<div class="warn"><b>Read first:</b> never ship a "done" claim without evidence. The house standard: this site only exists because "it works" is the most expensive sentence in software. Any change to the public site requires: tag-balance check, <code>node --check</code> on extracted JS, push to master, then curl -w '%{http_code}' every changed URL until 200. No mocked runs — ever.</div>
+
+<h2>Identity &amp; access</h2>
+<table>
+<tr><td class="k">site</td><td>Algorithmic Gold — verification standard for AI work · tagline: "Done is a claim. GOLD is a receipt."</td></tr>
+<tr><td class="k">live</td><td><a href="/">https://jdkabattles.github.io/algorithmic-gold/</a></td></tr>
+<tr><td class="k">repo</td><td><a href="https://github.com/jdkabattles/algorithmic-gold">github.com/jdkabattles/algorithmic-gold</a> · public · Apache-2.0</td></tr>
+<tr><td class="k">local</td><td><code>/data/data/com.termux/files/home/algorithmic-gold-landing</code></td></tr>
+<tr><td class="k">owner</td><td>jdkabattles · jdkabattles@gmail.com · gh authenticated as jdkabattles (repo+workflow scopes)</td></tr>
+<tr><td class="k">deploy</td><td>GitHub Pages, master branch, root. Automatic on push (~30-60s build). Verify with curl after every push.</td></tr>
+<tr><td class="k">commits</td><td>feat:/chore:/docs: prefix · author jdkabattles &lt;jdkabattles@gmail.com&gt;</td></tr>
+<tr><td class="k">full doc</td><td><a href="/WEBSITE.md">/WEBSITE.md</a> (repo root, plain markdown mirror of this manifest)</td></tr>
+</table>
+
+<h2>The standard (what this site sells)</h2>
+<table>
+<tr><th>Gate</th><th>Kills</th></tr>
+<tr><td class="k">01 COMMIT</td><td>p-hacking — procedures SHA-256 fingerprinted BEFORE the sealed seed exists</td></tr>
+<tr><td class="k">02 PARITY</td><td>resource cheating — identical instances + budgets, random.Random(1) for both</td></tr>
+<tr><td class="k">03 PLACEBO</td><td>specification gaming — gain must beat mismatched hidden truth (specificity &gt; 0)</td></tr>
+<tr><td class="k">04 PAIRED WIN</td><td>luck — bootstrap lower bound on paired diff &gt; 0, Bonferroni across slices</td></tr>
+<tr><td class="k">05 GOODHART</td><td>metric gaming — (proxy − truth) &lt;= 0.25 × max(|truth|, 1e-9)</td></tr>
+<tr><td class="k">06 COST</td><td>brute force — runtime &lt;= slack×baseline + 0.001×n×slices</td></tr>
+</table>
+<p class="muted">Seed protocol: GOLD on 5 independent fresh seeds PLUS one frozen holdout. A single GOLD True never counts. Harness: <code>~/algorithmic_gold.py</code>, <code>judge(cand, base, Domain, n=300)</code> → report with .GOLD. Last live run: trend mean 1.1890/lb 1.0534, flat 0.112/lb 0.0634, all gates clean.</p>
+
+<h2>Frozen benchmark numbers (never fabricate alternatives)</h2>
+<table>
+<tr><td class="k">naive_mean</td><td>0.6669</td></tr>
+<tr><td class="k">specaware_mean (tuned baseline)</td><td>0.5715</td></tr>
+<tr><td class="k">bossloop_mean (candidate)</td><td>0.8743</td></tr>
+<tr><td class="k">judge 4.73 &gt; 4.20</td><td>BossLoop vs naive, mean judge scores</td></tr>
+<tr><td class="k">goodhart_flags</td><td>11 — undeleted, shown on site on purpose</td></tr>
+<tr><td class="k">corr(score, judge)</td><td>−0.144 — honest second metric, shown on purpose</td></tr>
+</table>
+<p class="muted">Source: ~/the-agent/results.json (30 prompt×spec pairs). The negatives staying visible IS the engagement hook — keep them.</p>
+
+<h2>Site structure (all self-contained, zero external deps, works offline)</h2>
+<table>
+<tr><td class="k">/</td><td>index.html (~58KB) — hero, animated stats, visitor+CTA counters (localStorage), reciprocity bar (free checklist gist), social-proof strip, live SVG telemetry (2s, 3 series), problem cards, 6 gates, receipts terminal+bars, honesty block, atlas section, prior-art grid (10 repos w/ verified stars), loop steps, CTA (loss aversion + Zeigarnik), share row, sticky bar w/ rotating proof ticker</td></tr>
+<tr><td class="k">/blog/</td><td>5 backdated posts (2026-09-19→10-12): why-single-run-lies, goodhart-gate, specification-gaming-catalog, contamination-holdout, receipt-not-claim</td></tr>
+<tr><td class="k">/products/</td><td>ads for LIVE public landing pages only: mimicplus (forgingstack.com $199) + Verity (jdkabattles.github.io/verity)</td></tr>
+<tr><td class="k">/patterns/</td><td>Pattern Atlas — 49 cited cards, 3 families: 11 algorithm-creators (AlphaEvolve/FunSearch/AlphaZero/AG2/AlphaProof/DGM/AI-Scientist/Reflexion/Voyager/verifier/test-time), 26 verification (Campbell/winner's-curse/forks/always-valid/e-values/A-A/preregistration/holdout/kaggle-LB/mutation/fuzzing/chaos/canary/red-team/Cohen's d...), 12 dealer (Hooked/Cialdini/variable-ratio/curiosity/Zeigarnik/loss-aversion/anchoring/dark-pattern guardrail)</td></tr>
+<tr><td class="k">/404.html</td><td>branded receipt-style 404</td></tr>
+<tr><td class="k">/robots.txt</td><td>allow all + sitemap pointer (+ this page is disallowed — see below)</td></tr>
+<tr><td class="k">/sitemap.xml</td><td>10 URLs incl. /patterns/</td></tr>
+<tr><td class="k">/og-image.png</td><td>1200×630 social card (stdlib PNG encoder — no PIL on this machine)</td></tr>
+<tr><td class="k">/google1b58f165cab2b8c7.html</td><td>Search Console verification (serves exact string)</td></tr>
+<tr><td class="k">/be71026ef9fb751ed8b815acf9e421e3.txt</td><td>IndexNow key</td></tr>
+<tr><td class="k">/WEBSITE.md</td><td>full markdown reference (public, this manifest's twin)</td></tr>
+</table>
+
+<h2>Live URL checklist</h2>
+<div id="health" class="muted">running live checks…</div>
+
+<h2>SEO / backlinks (verified state)</h2>
+<table>
+<tr><td class="k">topics</td><td>8 dofollow topic backlinks: ai-evaluation, llm-evaluation, llm-as-a-judge, verification, benchmark, evals, ai-safety, goodharts-law</td></tr>
+<tr><td class="k">PR</td><td><a href="https://github.com/onejune2018/Awesome-LLM-Eval/pull/104">Awesome-LLM-Eval #104</a> (659★, Tools table, upstream format) — OPEN</td></tr>
+<tr><td class="k">gists</td><td>3 public: 692a790 (standard) · f70d018 (checklist, hero-linked) · ffe75b8 (receipts)</td></tr>
+<tr><td class="k">indexnow</td><td>ACCEPTED HTTP 202 — Bing/Yandex/Seznam/Naver. Google does NOT honor it.</td></tr>
+<tr><td class="k">twingly</td><td>ping accepted</td></tr>
+<tr><td class="k">google</td><td>verification file live; user must add URL-prefix property <code>jdkabattles.github.io</code> in browser + submit sitemap — account-gated, cannot automate</td></tr>
+<tr><td class="k">dead ends</td><td>Google/Bing REST pings 404/410 (deprecated 2023) · no npm/PyPI auth on machine · Reddit/HN/X need owner's own clicks (403 anon)</td></tr>
+</table>
+
+<h2>Design system (keep consistent)</h2>
+<table>
+<tr><td class="k">colors</td><td>bg #0a0a0f · surface #14141d · border #262633 · ink #f4f4f6 · gold #f5c542 · green #4ade80 · red #f87171 · dim #6b6b7a</td></tr>
+<tr><td class="k">type</td><td>mono for ALL numbers/labels · system sans for prose · no webfonts</td></tr>
+<tr><td class="k">classes</td><td>.rv (scroll reveal) · .term · .btn/.btn-primary/.btn-ghost · .tag · .honesty · .sh · .ctr/.ctr-dot · .livegraph · .pat/.patterns · .gate · .step · .pager · .sticky</td></tr>
+<tr><td class="k">rules</td><td>44px+ hit targets · real focus/hover · prefers-reduced-motion everywhere · breakpoints 860/760/640/560 · NO external deps · noindex/nofollow on internal pages like this one</td></tr>
+</table>
+
+<h2>Continue-workflow (checklist for any edit)</h2>
+<p class="muted">1. Edit in local path → 2. tag-balance check (HTMLParser) + extract &lt;script&gt; and <code>node --check</code> → 3. commit feat:/chore: → 4. push master → 5. sleep 60 → 6. curl -s -o /dev/null -w '%{http_code}' EVERY changed URL until 200 → 7. new pages go into sitemap.xml → 8. if new public page, also add to this manifest + WEBSITE.md.</p>
+
+<h2>Next candidates (not yet done)</h2>
+<p class="muted">· More awesome-list PRs (Awesome-LLM 27k★, Awesome-LLMs-as-Judges 618★, Awesome-LLM-Ops 6k★) — fork→edit README table in upstream format→PR, same as #104 · Profile README row (owner DENIED that write once — needs explicit re-confirmation) · True live telemetry needs a backend (Pages is static; current graph jitters frozen values) · No analytics; counters are per-browser localStorage.</p>
+
+<h2>Engagement patterns deployed (Family 03 — actually implemented, not decorative)</h2>
+<p class="muted">Reciprocity (free checklist bar) · social proof (falsifiable strip) · Zeigarnik (open-loop chip) · loss aversion (CTA copy) · curiosity gap (holdout teaser) · anchoring (free after receipts) · variable reward (rotating 8-item ticker, 3.2s, reduced-motion aware) · Hooked trigger (sticky bar at 700px) · guardrail (NO dark patterns — no fake scarcity/countdowns; the honesty is the hook).</p>
+
+<footer>
+ops manifest · hidden surface (disallowed in robots.txt, noindex meta, not in sitemap, not linked from nav) ·
+gate passphrase: <code>gold-verify-2026</code> · this page is a convention, not security ·
+twin doc: <a href="/WEBSITE.md">/WEBSITE.md</a> · full git log: <code>git log --oneline</code> in repo
+</footer>
+</div>
+
+<script>
+(function(){
+  var KEY = 'gold-verify-2026';
+  var gate = document.getElementById('gate');
+  var manifest = document.getElementById('manifest');
+  var pw = document.getElementById('pw');
+  var err = document.getElementById('gaterr');
+
+  function unlock(){
+    if (pw.value.trim() === KEY){
+      try { sessionStorage.setItem('ag_ops_unlocked','1'); } catch(_){}
+      gate.style.display='none';
+      manifest.style.display='block';
+      runHealth();
+      return;
+    }
+    err.textContent = '✗ denied';
+    pw.value='';
+    pw.focus();
+  }
+  document.getElementById('unlock').addEventListener('click', unlock);
+  pw.addEventListener('keydown', function(e){ if(e.key==='Enter') unlock(); });
+
+  try {
+    if (sessionStorage.getItem('ag_ops_unlocked')==='1'){
+      gate.style.display='none'; manifest.style.display='block';
+    }
+  } catch(_){}
+
+  function runHealth(){
+    var urls = [
+      '/', '/blog/', '/blog/why-single-run-lies.html', '/blog/goodhart-gate.html',
+      '/blog/specification-gaming-catalog.html', '/blog/contamination-holdout.html',
+      '/blog/receipt-not-claim.html', '/products/', '/patterns/', '/patterns/index.html',
+      '/sitemap.xml', '/robots.txt', '/404.html', '/og-image.png',
+      '/google1b58f165cab2b8c7.html', '/be71026ef9fb751ed8b815acf9e421e3.txt', '/WEBSITE.md'
+    ];
+    var box = document.getElementById('health');
+    var base = location.origin + '/algorithmic-gold';
+    box.innerHTML = '';
+    urls.forEach(function(u){
+      var row = document.createElement('div');
+      row.className = 'healthrow';
+      var left = document.createElement('span');
+      left.className = 'u'; left.textContent = u;
+      var right = document.createElement('span');
+      right.textContent = '…';
+      row.appendChild(left); row.appendChild(right);
+      box.appendChild(row);
+      fetch(base + u, {method:'GET', cache:'no-store'}).then(function(r){
+        right.textContent = r.status;
+        right.className = r.status===200 ? 'check' : 'fail';
+      }).catch(function(){
+        right.textContent = 'ERR'; right.className='fail';
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

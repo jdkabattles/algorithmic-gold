@@ -88,7 +88,7 @@ footer{margin-top:44px;color:var(--dim);font-size:11px;border-top:1px solid var(
 <div class="wrap" id="manifest">
 
 <h1>Algorithmic Gold — Ops Manifest</h1>
-<div class="sub">crystallized 2026-10-14 · for future Hermes sessions · everything verified live, not assumed</div>
+<div class="sub">crystallized 2026-10-14 · last sync now · verified live; google/bing = 0 indexed as of today</div>
 
 <div class="warn"><b>Read first:</b> never ship a "done" claim without evidence. The house standard: this site only exists because "it works" is the most expensive sentence in software. Any change to the public site requires: tag-balance check, <code>node --check</code> on extracted JS, push to master, then curl -w '%{http_code}' every changed URL until 200. No mocked runs — ever.</div>
 
@@ -154,9 +154,38 @@ footer{margin-top:44px;color:var(--dim);font-size:11px;border-top:1px solid var(
 <tr><td class="k">twingly</td><td>ping accepted</td></tr>
 <tr><td class="k">google</td><td>verification file live; user must add URL-prefix property <code>jdkabattles.github.io</code> in browser + submit sitemap — account-gated, cannot automate</td></tr>
 <tr><td class="k">wayback</td><td>Archived via web.archive.org/save (200): snapshots at 20261014212211 (home), 20261014212302 (sitemap), 20261014212742 (blog), 20261014212838 (products), 20261014212848 (patterns), 20261014212901 (goodhart-gate post). Wayback mirrors are a strong secondary citation source + link equity.</td></tr>
+<tr><td class="k">google status</td><td><b>0 pages indexed</b> as of 2026-10-14 (site: query returns empty, SG_REL). Verification file serves 200. Fix: user submits sitemap + requests indexing on home/patterns/blog in Search Console; link authority still thin (3 gists, 8 topics, 1 unmerged PR, 6 Wayback snapshots).</td></tr>
+<tr><td class="k">bing status</td><td><b>0 pages indexed</b> as of 2026-10-14 (site: query returns Bing-internal tabs only, no results). IndexNow re-fired with all 10 sitemap URLs (HTTP 200 accepted). Bing follows IndexNow; Google ignores it.</td></tr>
+<tr><td class="k">ddg/mojeek/marginalia</td><td>none indexed yet — auto-discovery only; no submission endpoint exists for these engines.</td></tr>
+<tr><td class="k">request indexing list</td><td>10 public URLs grouped: submit sitemap.xml in Sitemaps; URL-inspect + Request Indexing on #1 /pattern/ and one blog post to seed the crawl. See the README bullet added below.</td></tr>
+<tr><td class="k">google status</td><td><b>0 pages indexed</b> as of 2026-10-14 (site: query returns no hits). Verification file serves 200. Fix: user submits sitemap + requests indexing on home/patterns/blog in Search Console; link authority still thin (3 gists, 8 topics, 1 unmerged PR, 6 Wayback snapshots).</td></tr>
+<tr><td class="k">bing status</td><td><b>0 pages indexed</b> as of 2026-10-14 (site: query returns Bing-internal tabs only). IndexNow re-fired with all 10 sitemap URLs (HTTP 200 accepted). Google ignores IndexNow.</td></tr>
+<tr><td class="k">ddg/mojeek/marginalia</td><td>none indexed yet - auto-discovery only; no submission endpoint exists for these engines.</td></tr>
+<tr><td class="k">request indexing list</td><td>10 public URLs grouped: submit sitemap.xml in Sitemaps; URL-inspect + Request Indexing on home/patterns/blog to seed. See playbook below.</td></tr>
 <tr><td class="k">dead ends</td><td>Google/Bing REST pings 404/410 (deprecated 2023) · no npm/PyPI auth on machine · Reddit/HN/X need owner's own clicks (403 anon)</td></tr>
 </table>
 
+
+<h2>Google indexing playbook (crystallized 2026-10-14)</h2>
+<table>
+<tr><td class="k">core first</td><td>1. https://jdkabattles.github.io/algorithmic-gold/  ·  2. .../patterns/  ·  3. .../blog/ — URL Inspection → Request Indexing on each</td></tr>
+<tr><td class="k">blog</td><td>why-single-run-lies · goodhart-gate · specification-gaming-catalog · contamination-holdout · receipt-not-claim (submit after the core 3)</td></tr>
+<tr><td class="k">other</td><td>.../products/ · .../patterns/index.html · .../sitemap.xml (submit in Sitemaps field only, not URL-inspect) · .../robots.txt · .../og-image.png</td></tr>
+<tr><td class="k">never submit</td><td>/ops/manifest.html (noindex) · /be71026ef9fb751ed8b815acf9e421e3.txt (key) · /google1b58f165cab2b8c7.html (verification) · /WEBSITE.md (doc)</td></tr>
+<tr><td class="k">expected timeline</td><td>Verification ≠ indexing. New low-authority domains take days to weeks; Request Indexing speeds it up but still needs the inbound-link graph to land. Fastest lever: merge the open Awesome-LLM-Eval PR #104 (dofollow). Best results: Week 1 verify+sitemaps; Week 2 index of home+patterns; Week 3+ full site once PRs merge and gists get crawled.</td></tr>
+<tr><td class="k">bing path</td><td>Bing Webmaster Tools → Import from GSC → submit https://jdkabattles.github.io/algorithmic-gold/sitemap.xml. IndexNow already fired (200 accepted, 10 URLs).</td></tr>
+<tr><td class="k">ops health</td><td>on unlock, the table above runs fetch() against all 17 public URLs and shows green/red live — silent-broken URLs surface instantly.</td></tr>
+</table>
+<h2>Google indexing playbook (crystallized 2026-10-14)</h2>
+<table>
+<tr><td class="k">core first</td><td>1. .../  .  2. .../patterns/  .  3. .../blog/ — URL Inspection, Request Indexing on each (3 requests)</td></tr>
+<tr><td class="k">blog</td><td>why-single-run-lies · goodhart-gate · specification-gaming-catalog · contamination-holdout · receipt-not-claim (after the core 3)</td></tr>
+<tr><td class="k">other</td><td>/products/ · /patterns/index.html · /sitemap.xml (Sitemaps field only) · /robots.txt · /og-image.png</td></tr>
+<tr><td class="k">never submit</td><td>/ops/manifest.html (noindex) · /be71026ef9fb751ed8b815acf9e421e3.txt (key) · /google1b58f165cab2b8c7.html (verification) · /WEBSITE.md (doc)</td></tr>
+<tr><td class="k">expected timeline</td><td>Verification != indexing. New low-authority domains take days to weeks; Request Indexing speeds it up but still needs inbound-link graph. Fastest lever: merge open Awesome-LLM-Eval PR #104 (dofollow). Best results: Week 1 verify+sitemaps; Week 2 indexing of home+patterns; Week 3+ full site once PRs merge and gists get crawled.</td></tr>
+<tr><td class="k">bing path</td><td>Bing Webmaster Tools -> Import from GSC -> submit /sitemap.xml. IndexNow already fired (200 accepted, 10 URLs). Bing often indexes within 24h of clear IndexNow.</td></tr>
+<tr><td class="k">ops health</td><td>On unlock, the table above runs fetch() against all 17 public URLs and shows live green/red per URL — silent-broken URLs surface instantly.</td></tr>
+</table>
 <h2>Design system (keep consistent)</h2>
 <table>
 <tr><td class="k">colors</td><td>bg #0a0a0f · surface #14141d · border #262633 · ink #f4f4f6 · gold #f5c542 · green #4ade80 · red #f87171 · dim #6b6b7a</td></tr>

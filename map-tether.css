@@ -1,0 +1,248 @@
+/* Algorithmic Gold — Directory Maps Tether styles (map-tether.css).
+   Adapted from the Gold Is The Receipt tether. z-index raised above the
+   Algorithmic Gold fixed nav (z-index 100) so the drawer and its X stay
+   clickable. Host page styles untouched. */
+   Style-neutral, namespaced `gt-tether-*`. This file must NOT restyle the
+   host page. It styles ONLY elements it creates. No global resets, no
+   `body` / `a` / `button` selectors, no `!important` overrides of host styles.
+   The Directory Maps tab is small and inline by default. The drawer appears
+   only when the visitor opens it. There is no sticky bar, no floaty bar,
+   no ticker. The drawer has an X in the TOP RIGHT corner to close it.
+   The fallback corner tab (used only when the host page provides no mount
+   point) is small, has its own dismiss button, and never auto-opens. */
+
+.gt-tether-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 64px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid #3a3742;
+  background: #f5c542;
+  color: #111;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.gt-tether-btn:hover { border-color: #f5c542; }
+.gt-tether-btn:focus-visible {
+  outline: 3px solid #f5c542;
+  outline-offset: 2px;
+}
+/* Full tab text on desktop, compact text on phones. */
+.gt-tether-btn-short { display: none; }
+@media (max-width: 560px) {
+  .gt-tether-btn-full { display: none; }
+  .gt-tether-btn-short { display: inline; }
+}
+
+/* Fallback corner tab: last resort only, when the host page has no mount.
+   Small, bottom-right, with its own dismiss button. Never auto-opens. */
+.gt-tether-fallback {
+  box-sizing: border-box;
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(20, 19, 28, 0.96);
+  border: 1px solid #3a3742;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.gt-tether-dismiss {
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 50%;
+  border: 1px solid #3a3742;
+  background: transparent;
+  color: #f4f4f6;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.gt-tether-dismiss:focus-visible {
+  outline: 3px solid #f5c542;
+  outline-offset: 2px;
+}
+
+/* Scrim + drawer: appear ONLY when the visitor opens Directory Maps. */
+.gt-tether-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.55);
+}
+.gt-tether-drawer {
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 210;
+  width: min(480px, 92vw);
+  height: 100dvh;
+  overflow-y: auto;
+  background: #1d1a22;
+  border-left: 1px solid #2a2836;
+  padding: 24px;
+  color: #f5f4f0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+}
+/* Drawer head: relative so the X can sit in the TOP RIGHT corner. */
+.gt-tether-head {
+  position: relative;
+  padding-right: 56px;
+}
+.gt-tether-head h2,
+.gt-tether-title {
+  margin: 0 0 8px;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #f5f4f0;
+}
+.gt-tether-sub {
+  margin: 0 0 16px;
+  color: #c4c0b8;
+  font-size: 15px;
+}
+.gt-tether-search-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #f5f4f0;
+}
+.gt-tether-search {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #2a2836;
+  background: #0b0b10;
+  color: #f5f4f0;
+  font: inherit;
+}
+/* X button in the TOP RIGHT corner of the drawer. Closes Directory Maps. */
+.gt-tether-close {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #2a2836;
+  background: #201e2a;
+  color: #f5f4f0;
+  font: inherit;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+.gt-tether-close:hover { border-color: #f5c542; }
+.gt-tether-close:focus-visible {
+  outline: 3px solid #f5c542;
+  outline-offset: 2px;
+}
+.gt-tether-group { margin-top: 24px; }
+.gt-tether-group h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f5c542;
+}
+.gt-tether-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.gt-tether-group li {
+  border: 1px solid #2a2836;
+  border-radius: 10px;
+  padding: 12px;
+  background: #0b0b10;
+}
+.gt-tether-group li a {
+  font-weight: 750;
+  text-decoration: none;
+  color: #f5c542;
+}
+.gt-tether-group li span {
+  display: block;
+  color: #c4c0b8;
+  margin-top: 4px;
+  font-size: 14px;
+}
+/* Coming Soon: plain text, NO link. Title reads as text, not a link,
+   and the "Coming Soon" label sits underneath it, visually unmistakable. */
+.gt-tether-coming-title {
+  display: block;
+  font-weight: 750;
+  color: #f5f4f0;
+}
+.gt-tether-coming-soon {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid #3d3520;
+  background: rgba(245, 197, 66, 0.12);
+  color: #e8c96a;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.gt-tether-coming .gt-tether-coming-soon {
+  display: inline-block;
+  margin-top: 6px;
+}
+/* Subpages: nested list under their parent site. Each links to its page. */
+.gt-tether-subpages {
+  margin-top: 10px;
+  padding-left: 12px;
+  border-left: 2px solid #2a2836;
+}
+.gt-tether-subpage {
+  border: none !important;
+  padding: 6px 0 6px 4px !important;
+  background: transparent !important;
+}
+.gt-tether-subpage a {
+  font-weight: 700;
+  font-size: 15px;
+}
+.gt-tether-subpage span {
+  font-size: 13px;
+}
+.gt-tether-empty { color: #c4c0b8; }
+
+/* Reduced motion: no transitions anywhere in the tether. */
+@media (prefers-reduced-motion: reduce) {
+  .gt-tether-btn,
+  .gt-tether-dismiss,
+  .gt-tether-close,
+  .gt-tether-group li {
+    transition: none !important;
+    animation: none !important;
+  }
+}

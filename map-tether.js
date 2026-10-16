@@ -35,14 +35,26 @@
   // A coming_soon entry keeps its planned `url` in the data so flipping
   // it to built is a one-field change — the renderer never turns it
   // into an <a> while status is 'coming_soon'.
+  // HONESTY RULE (2026-10-16 fix): a 'built' entry must link to a URL that
+  // actually serves that site today. Staged / planned / not-yet-live
+  // targets are 'coming_soon', never 'built' with a dead link.
   var DIRECTORY = [
     // NOTE — Algorithmic Gold adaptation.
     // AG entries use AG-root-relative URLs (no leading slash) resolved against
     // the per-page data-tether-base ("./" on index, "../" one level down).
-    // Tethered-site entries use absolute https://www.forgingstack.com/ URLs.
-    // Those forgingstack.com links are STAGED TARGETS until the domain
-    // connects after approval — the sites themselves exist in their own repos.
-    { group: 'hub', title: 'Gold Is The Receipt', url: 'https://www.forgingstack.com/', status: 'built', desc: 'The hub. Done is a claim. GOLD is a receipt. (Staged target — domain connects after approval.)' },
+    // Tethered-site entries use absolute https://www.forgingstack.com/ URLs
+    // ONLY when that path actually serves the site today (verified):
+    //   mimicplus home = https://www.forgingstack.com/ (the live site root),
+    //   Contract home = https://www.forgingstack.com/gate/,
+    //   harwatch = https://www.forgingstack.com/harwatch/.
+    // Everything else on this domain is 'coming_soon' (no link) until its
+    // site is actually live there. No staged target is presented as built.
+    // HONESTY FIX 2026-10-16: the hub was listed as built at
+    // https://www.forgingstack.com/ — false, because that URL serves the
+    // Mimicplus home, not a hub page. Hub is now coming_soon, no link.
+    // Contract was listed at a planned subpath under mimicplus — that path does not exist.
+    // Contract now links to its real live path /gate/.
+    { group: 'hub', title: 'Gold Is The Receipt', url: 'https://www.forgingstack.com/', status: 'coming_soon', desc: 'The hub. Done is a claim. GOLD is a receipt. Not yet live as its own page — forgingstack.com currently serves the Mimicplus home. Coming Soon; no link until the hub has its own page.' },
     { group: 'standard', title: 'Algorithmic Gold', url: 'index.html', status: 'built', desc: 'The verification standard. Six gates. Real outcomes.' },
     { group: 'learn', title: 'Blog', url: 'blog/index.html', status: 'built', desc: 'Essays behind the standard.', children: [
       { title: 'Why Single Runs Lie', url: 'blog/why-single-run-lies.html', status: 'built', desc: 'One run is not a result.' },
@@ -53,12 +65,12 @@
     ] },
     { group: 'learn', title: 'Pattern Atlas', url: 'patterns/index.html', status: 'built', desc: '49 cited patterns behind the gates.' },
     { group: 'products', title: 'Products', url: 'products/index.html', status: 'built', desc: 'Products under the standard: mimicplus, Verity.' },
-    { group: 'products', title: 'mimicplus', url: 'https://www.forgingstack.com/mimicplus/', status: 'built', desc: 'Client-side HAR sanitizer. Never uploads your data. (Staged target.)' },
-    { group: 'products', title: 'Contract', url: 'https://www.forgingstack.com/mimicplus/contract/', status: 'built', desc: 'Contract, its own website. Prominent link from mimicplus. (Staged target.)' },
-    { group: 'products', title: 'Avcal-Agent', url: 'https://www.forgingstack.com/avcal-agent/', status: 'built', desc: 'Sandboxed hidden-suite verification for agent-written code. (Staged target.)' },
-    { group: 'products', title: 'harwatch', url: 'https://www.forgingstack.com/harwatch/', status: 'built', desc: 'harwatch, its own website. (Staged target.)' },
-    { group: 'products', title: 'EvidenceForge', url: 'https://www.forgingstack.com/evidenceforge/', status: 'built', desc: 'EvidenceForge, its own website. (Staged target.)' },
-    { group: 'products', title: 'Verity', url: 'https://www.forgingstack.com/verity/', status: 'built', desc: 'Verity, open-source product. Its own website. (Staged target.)' },
+    { group: 'products', title: 'mimicplus', url: 'https://www.forgingstack.com/', status: 'built', desc: 'Client-side HAR sanitizer. Never uploads your data. Live at forgingstack.com (its home).' },
+    { group: 'products', title: 'Contract', url: 'https://www.forgingstack.com/gate/', status: 'built', desc: 'Contract, its own website. Prominent link from mimicplus. Live at /gate/.' },
+    { group: 'products', title: 'Avcal-Agent', url: 'https://www.forgingstack.com/avcal-agent/', status: 'coming_soon', desc: 'Sandboxed hidden-suite verification for agent-written code. Site exists as code in its repo; not yet live on this domain. Coming Soon.' },
+    { group: 'products', title: 'harwatch', url: 'https://www.forgingstack.com/harwatch/', status: 'built', desc: 'harwatch, its own website. Live at /harwatch/ on this domain (hosted in the Mimicplus site repo).' },
+    { group: 'products', title: 'EvidenceForge', url: 'https://www.forgingstack.com/evidenceforge/', status: 'coming_soon', desc: 'EvidenceForge, its own website. Not yet live on this domain. Coming Soon.' },
+    { group: 'products', title: 'Verity', url: 'https://www.forgingstack.com/verity/', status: 'coming_soon', desc: 'Verity, open-source product. Site exists in its repo (docs/index.html) and needs work; not yet live on this domain. Coming Soon.' },
     { group: 'products', title: 'Governed Agent Engine', url: 'https://www.forgingstack.com/governed-agent-engine/', status: 'coming_soon', desc: 'Governed Agent Engine, its own website. Not yet built.' }
   ]
 
@@ -84,7 +96,7 @@
   }
 
   function resolveUrl(base, url) {
-    // Absolute https URLs (tethered forgingstack.com targets) pass through unchanged.
+    // Absolute https URLs (live forgingstack.com links) pass through unchanged.
     if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) return url;
     // AG-root-relative URLs ("blog/...", "index.html") resolve against the
     // per-page data-tether-base ("./" on index, "../" one level down).

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Algorithmic Gold</title>
+    <link>https://jdkabattles.github.io/algorithmic-gold/</link>
+    <description>Field notes and the verification standard: six gates, real outcomes, no mocked runs.</description>
+    <language>en</language>
+    <item>
+      <title>Algorithmic Gold — Done Is a Claim. GOLD Is a Receipt.</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/</guid>
+      <description>The verification standard for AI work: gains proven by a signal the procedure can't game, against a strong fair baseline.</description>
+    </item>
+    <item>
+      <title>Products — Algorithmic Gold</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/products/</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/products/</guid>
+      <description>Products from the same builder: mimicplus (HAR to OpenAPI) and Verity (append-only evidence ledger).</description>
+    </item>
+    <item>
+      <title>The Pattern Atlas — Algorithmic Gold</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/patterns/</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/patterns/</guid>
+      <description>49 verified patterns across three families, each cited to a live source.</description>
+    </item>
+    <item>
+      <title>Blog — Algorithmic Gold</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/blog/</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/blog/</guid>
+      <description>Field notes from the verification standard.</description>
+    </item>
+    <item>
+      <title>Why a single run always lies</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/blog/why-single-run-lies.html</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/blog/why-single-run-lies.html</guid>
+      <description>Statistical power, noise floors, and why n=300 paired instances per slice is sized, not improvised.</description>
+    </item>
+    <item>
+      <title>The Goodhart gate: when your metric starts gaming you back</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/blog/goodhart-gate.html</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/blog/goodhart-gate.html</guid>
+      <description>Goodhart's law is not a warning label — it's a gate.</description>
+    </item>
+    <item>
+      <title>Specification gaming: the flip side of ingenuity</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/blog/specification-gaming-catalog.html</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/blog/specification-gaming-catalog.html</guid>
+      <description>Agents that satisfy the letter of the objective while violating its spirit — and the placebo test that catches them.</description>
+    </item>
+    <item>
+      <title>Your test set is contaminated. Act like it.</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/blog/contamination-holdout.html</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/blog/contamination-holdout.html</guid>
+      <description>Five fresh sealed seeds plus one frozen holdout is the minimum honest protocol.</description>
+    </item>
+    <item>
+      <title>Done is a claim. GOLD is a receipt.</title>
+      <link>https://jdkabattles.github.io/algorithmic-gold/blog/receipt-not-claim.html</link>
+      <guid>https://jdkabattles.github.io/algorithmic-gold/blog/receipt-not-claim.html</guid>
+      <description>The origin story of the six gates — and why a standard that reports its failures is the only kind worth trusting.</description>
+    </item>
+  </channel>
+</rss>

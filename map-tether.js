@@ -46,7 +46,8 @@
     // ONLY when that path actually serves the site today (verified):
     //   mimicplus home = https://www.forgingstack.com/ (the live site root),
     //   Contract home = https://www.forgingstack.com/gate/,
-    //   harwatch = https://www.forgingstack.com/harwatch/.
+    //   harwatch = https://www.forgingstack.com/harwatch/,
+    //   Avcal-Agent = https://www.forgingstack.com/avcal-agent/.
     // Everything else on this domain is 'coming_soon' (no link) until its
     // site is actually live there. No staged target is presented as built.
     // HONESTY FIX 2026-10-16: the hub was listed as built at
@@ -67,7 +68,7 @@
     { group: 'products', title: 'Products', url: 'products/index.html', status: 'built', desc: 'Products under the standard: mimicplus, Verity.' },
     { group: 'products', title: 'mimicplus', url: 'https://www.forgingstack.com/', status: 'built', desc: 'Client-side HAR sanitizer. Never uploads your data. Live at forgingstack.com (its home).' },
     { group: 'products', title: 'Contract', url: 'https://www.forgingstack.com/gate/', status: 'built', desc: 'Contract, its own website. Prominent link from mimicplus. Live at /gate/.' },
-    { group: 'products', title: 'Avcal-Agent', url: 'https://www.forgingstack.com/avcal-agent/', status: 'coming_soon', desc: 'Sandboxed hidden-suite verification for agent-written code. Site exists as code in its repo; not yet live on this domain. Coming Soon.' },
+    { group: 'products', title: 'Avcal-Agent', url: 'https://www.forgingstack.com/avcal-agent/', status: 'built', desc: 'Sandboxed hidden-suite verification for agent-written code. Live at /avcal-agent/.' },
     { group: 'products', title: 'harwatch', url: 'https://www.forgingstack.com/harwatch/', status: 'built', desc: 'harwatch, its own website. Live at /harwatch/ on this domain (hosted in the Mimicplus site repo).' },
     { group: 'products', title: 'EvidenceForge', url: 'https://www.forgingstack.com/evidenceforge/', status: 'built', desc: 'EvidenceForge, its own website. Auditable, evidence-citing AI agents. Live at /evidenceforge/.' },
     { group: 'products', title: 'Verity', url: 'https://www.forgingstack.com/verity/', status: 'coming_soon', desc: 'Verity, open-source product. Site exists in its repo (docs/index.html) and needs work; not yet live on this domain. Coming Soon.' },

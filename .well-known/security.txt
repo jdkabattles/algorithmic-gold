@@ -1,0 +1,5 @@
+# Algorithmic Gold — security.txt
+# TODO: verify security@forgingstack.com mailbox exists before launch.
+Contact: mailto:security@forgingstack.com
+Expires: 2027-05-13T00:00:00.000Z
+Canonical: https://jdkabattles.github.io/algorithmic-gold/.well-known/security.txt

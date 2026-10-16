@@ -1,7 +1,29 @@
+# Algorithmic Gold — robots.txt
+# 3-bucket AI policy: block training crawlers, allow search crawlers.
+User-agent: GPTBot
+Disallow: /
+User-agent: ClaudeBot
+Disallow: /
+User-agent: CCBot
+Disallow: /
+User-agent: Google-Extended
+Disallow: /
+User-agent: Meta-ExternalAgent
+Disallow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Mediapartners-Google
+Allow: /
 User-agent: *
 Allow: /
 
-# hidden ops surface — not for crawlers
+# hidden ops surface — not for crawlers (kept from original robots.txt)
 Disallow: /algorithmic-gold/ops/
 
 Sitemap: https://jdkabattles.github.io/algorithmic-gold/sitemap.xml

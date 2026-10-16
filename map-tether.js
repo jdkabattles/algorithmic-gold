@@ -69,7 +69,7 @@
     { group: 'products', title: 'Contract', url: 'https://www.forgingstack.com/gate/', status: 'built', desc: 'Contract, its own website. Prominent link from mimicplus. Live at /gate/.' },
     { group: 'products', title: 'Avcal-Agent', url: 'https://www.forgingstack.com/avcal-agent/', status: 'coming_soon', desc: 'Sandboxed hidden-suite verification for agent-written code. Site exists as code in its repo; not yet live on this domain. Coming Soon.' },
     { group: 'products', title: 'harwatch', url: 'https://www.forgingstack.com/harwatch/', status: 'built', desc: 'harwatch, its own website. Live at /harwatch/ on this domain (hosted in the Mimicplus site repo).' },
-    { group: 'products', title: 'EvidenceForge', url: 'https://www.forgingstack.com/evidenceforge/', status: 'coming_soon', desc: 'EvidenceForge, its own website. Not yet live on this domain. Coming Soon.' },
+    { group: 'products', title: 'EvidenceForge', url: 'https://www.forgingstack.com/evidenceforge/', status: 'built', desc: 'EvidenceForge, its own website. Auditable, evidence-citing AI agents. Live at /evidenceforge/.' },
     { group: 'products', title: 'Verity', url: 'https://www.forgingstack.com/verity/', status: 'coming_soon', desc: 'Verity, open-source product. Site exists in its repo (docs/index.html) and needs work; not yet live on this domain. Coming Soon.' },
     { group: 'products', title: 'Governed Agent Engine', url: 'https://www.forgingstack.com/governed-agent-engine/', status: 'coming_soon', desc: 'Governed Agent Engine, its own website. Not yet built.' }
   ]

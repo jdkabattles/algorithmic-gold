@@ -92,11 +92,78 @@ footer a{color:var(--muted)}
   c.info('%c Repo: github.com/jdkabattles/algorithmic-gold  ·  Standard: jdkabattles.github.io/algorithmic-gold/', 'color:#5a5a66;font-size:11px;');
 })();
 </script>
+<!-- === Technical additions — Directory Maps + discovery. No visible change to existing content. === -->
+<meta name="color-scheme" content="dark light">
+<meta property="og:site_name" content="Algorithmic Gold">
+<meta property="og:image:alt" content="Why a single run always lies — Algorithmic Gold Blog">
+<link rel="sitemap" type="application/xml" href="../sitemap.xml">
+<link rel="alternate" type="application/rss+xml" title="Algorithmic Gold" href="../feed.xml">
+<link rel="search" type="application/opensearchdescription+xml" title="Algorithmic Gold" href="../opensearch.xml">
+<meta name="msapplication-TileColor" content="#0a0a0f">
+<meta name="msapplication-config" content="../browserconfig.xml">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="../map-tether.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Algorithmic Gold",
+      "url": "https://jdkabattles.github.io/algorithmic-gold/"
+    },
+    {
+      "@type": "Organization",
+      "name": "Algorithmic Gold",
+      "url": "https://jdkabattles.github.io/algorithmic-gold/"
+    },
+    {
+      "@type": "BlogPosting",
+      "name": "Why a single run always lies — Algorithmic Gold Blog",
+      "description": "One demo, one seed, one lucky pass — and everyone calls it done. Statistical power, noise floors, and why n=300 paired instances per slice is sized, not improvised.",
+      "url": "https://jdkabattles.github.io/algorithmic-gold/blog/why-single-run-lies.html",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Algorithmic Gold",
+        "url": "https://jdkabattles.github.io/algorithmic-gold/"
+      }
+    }
+  ]
+}
+</script>
+<!-- TODO: Google Search Console verification — paste the REAL code from Search Console, then uncomment. No placeholder ships. -->
+<!-- <meta name="google-site-verification" content="PASTE_REAL_CODE_HERE"> -->
+<!-- TODO: Bing Webmaster verification — paste the REAL code, then uncomment. -->
+<!-- <meta name="msvalidate.01" content="PASTE_REAL_CODE_HERE"> -->
+<!-- TODO: Google / Microsoft tracking (GTM + GA4 + Clarity) — MARKETING PAGES ONLY.
+     Algorithmic Gold pages are marketing pages, not tool pages handling user data.
+     Fill in the REAL IDs, then uncomment. Do NOT ship placeholders as active values.
+     Tracking does NOT affect search discovery — sitemap, robots, canonical, and
+     content do. -->
+<!-- Google Tag Manager — fill real GTM ID, then uncomment.
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+-->
+<!-- GA4 direct (only if NOT using GTM) — fill real G- ID, then uncomment.
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXX');</script>
+-->
+<!-- Microsoft Clarity — fill real Clarity ID, then uncomment.
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "REPLACE_WITH_CLARITY_ID");
+</script>
+-->
 </head>
 <body>
 <nav><div class="wrap">
   <a class="logo" href="../" style="text-decoration:none"><svg width="22" height="22" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#14141d" stroke="#262633"/><path d="M8 22l8-14 8 14" stroke="#f5c542" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Algorithmic&nbsp;<span>Gold</span></a>
   <div class="navlinks"><a href="../">Standard</a><a href="./" class="active">Blog</a><a href="../products/">Products</a></div>
+<!-- Directory Maps tab mount — the tab itself is the only new visible element. -->
+  <span data-tether-mount data-tether-base="../"></span>
 </div></nav>
 
 <article><div class="wrap">
@@ -196,5 +263,6 @@ placebo_clean=True   goodhart_ok=True   cost_parity=True
   });
 })();
 </script>
+  <script src="../map-tether.js"></script>
 </body>
 </html>

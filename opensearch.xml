@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: Algorithmic Gold has no /search/ endpoint yet. Either implement it
+     or remove the opensearch link from pages before launch. Do not ship a
+     search description pointing at a page that does not exist. -->
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Algorithmic Gold</ShortName>
+  <Description>Search Algorithmic Gold</Description>
+  <Url type="text/html" template="https://jdkabattles.github.io/algorithmic-gold/search?q={searchTerms}"/>
+</OpenSearchDescription>

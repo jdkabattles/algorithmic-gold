@@ -68,7 +68,11 @@
     { group: 'learn', title: 'Pattern Atlas', url: 'patterns/index.html', status: 'built', desc: '49 cited patterns behind the gates.' },
     { group: 'products', title: 'Products', url: 'products/index.html', status: 'built', desc: 'Products under the standard: mimicplus, Verity.' },
     { group: 'products', title: 'mimicplus', url: 'https://www.forgingstack.com/', status: 'built', desc: 'Client-side HAR sanitizer. Never uploads your data. Live at forgingstack.com (its home).' },
-    { group: 'products', title: 'Contract', url: 'https://www.forgingstack.com/gate/', status: 'built', desc: 'Contract, its own website. Prominent link from mimicplus. Live at /gate/.' },
+    { group: 'products', title: 'Contract', url: 'https://www.forgingstack.com/gate/', status: 'built', desc: 'Contract, its own website. Prominent link from mimicplus. Live at /gate/.', children: [
+      { title: 'What goes in', url: 'https://www.forgingstack.com/gate/what-it-does/', status: 'built', desc: 'What Contract Gate takes, and what it returns.' },
+      { title: 'How to use it', url: 'https://www.forgingstack.com/gate/how-to/', status: 'built', desc: 'How to use Contract Gate, in plain English.' },
+      { title: 'For the programmer', url: 'https://www.forgingstack.com/gate/technical/', status: 'built', desc: 'Approved spec, later HAR, one waiver.' }
+    ] },
     { group: 'products', title: 'Avcal-Agent', url: 'https://www.forgingstack.com/avcal-agent/', status: 'built', desc: 'Sandboxed hidden-suite verification for agent-written code. Live at /avcal-agent/.' },
     { group: 'products', title: 'harwatch', url: 'https://www.forgingstack.com/harwatch/', status: 'built', desc: 'harwatch, its own website. Live at /harwatch/ on this domain (hosted in the Mimicplus site repo).' },
     { group: 'products', title: 'EvidenceForge', url: 'https://www.forgingstack.com/evidenceforge/', status: 'built', desc: 'EvidenceForge, its own website. Auditable, evidence-citing AI agents. Live at /evidenceforge/.' },

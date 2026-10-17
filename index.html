@@ -683,6 +683,28 @@ footer a{color:var(--muted)}
     <div><a href="#top">Back to top ↑</a></div>
   </div>
 </footer>
+  <section>
+    <h2>Request information</h2>
+    <p>Want details on a GOLD Verification Run or Algorithmic Gold updates? Send a request. No tracking on this form. Provider choice pending - this form uses mailto fallback.</p>
+    <form action="mailto:jdkabattles@gmail.com" method="post" enctype="text/plain">
+      <label for="ag-name">Name</label>
+      <input id="ag-name" name="Name" type="text" required>
+      <label for="ag-email">Email</label>
+      <input id="ag-email" name="Email" type="email" required>
+      <label for="ag-interest">I am interested in</label>
+      <select id="ag-interest" name="Interest">
+        <option value="GOLD Verification Run">GOLD Verification Run</option>
+        <option value="Algorithmic Gold updates">Algorithmic Gold updates</option>
+        <option value="Proof updates">Proof updates</option>
+        <option value="Data updates">Data updates</option>
+      </select>
+      <label for="ag-message">Message</label>
+      <textarea id="ag-message" name="Message" rows="4"></textarea>
+      <button type="submit">Request information</button>
+      <p>Email is used only for the information you requested. No tracking on this form. Provider choice pending - this form uses mailto fallback.</p>
+    </form>
+  </section>
+
 
 <script>
 (function(){

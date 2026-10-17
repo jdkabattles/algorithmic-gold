@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="../icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="../icon-512.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0f'/%3E%3Cpath d='M8 22l8-14 8 14' stroke='%23f5c542' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E'>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0f'/%3E%3Cpath d='M8 22l8-14 8 14' stroke='%23f5c542' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 :root{--bg:#0a0a0f;--bg2:#0f0f16;--surface:#14141d;--surface2:#1a1a26;--ink:#f4f4f6;--muted:#9a9aa8;--dim:#6b6b7a;--border:#262633;--gold:#f5c542;--green:#4ade80;--red:#f87171;--mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,Arial,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -43,24 +43,59 @@ header{padding:70px 0 40px}
 h1{font-size:clamp(32px,5.2vw,48px);line-height:1.1;letter-spacing:-.03em;font-weight:800;margin-bottom:16px;max-width:760px}
 .sub{color:var(--muted);font-size:17px;max-width:680px}
 .count-line{font-family:var(--mono);font-size:12.5px;color:var(--dim);margin-top:22px}
+/* How to use the Atlas */
+.howto{margin:36px 0 10px;padding:24px 26px;border:1px solid var(--border);border-radius:16px;background:var(--surface)}
+.howto h2{font-size:19px;margin-bottom:6px;letter-spacing:-.01em}
+.howto>p{color:var(--muted);font-size:14.5px;margin-bottom:16px;max-width:640px}
+.howto ol{list-style:none;counter-reset:step;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.howto li{counter-increment:step;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px}
+.howto li b{display:block;color:var(--gold);font-size:14px;margin-bottom:4px}
+.howto li b::before{content:counter(step) ". ";font-family:var(--mono);color:var(--gold)}
+.howto li span{color:var(--muted);font-size:13.5px;line-height:1.5}
+/* Search + family filter — visitor-driven only, no auto-motion */
+.controls{margin:28px 0 8px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.controls label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.search-input{flex:1 1 260px;min-height:44px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--ink);font-family:var(--sans);font-size:15px;padding:0 14px}
+.search-input:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-color:var(--gold)}
+.fam-filters{display:flex;flex-wrap:wrap;gap:8px}
+.fam-filter{min-height:44px;padding:0 16px;border-radius:100px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-family:var(--sans);font-size:14px;cursor:pointer}
+.fam-filter:hover{border-color:var(--gold);color:var(--ink)}
+.fam-filter[aria-pressed="true"]{background:var(--gold);color:#000;border-color:var(--gold);font-weight:700}
+.fam-filter:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.atlas-count{font-family:var(--mono);font-size:12.5px;color:var(--dim);margin:10px 0 0}
+.atlas-empty{color:var(--muted);font-size:15px;margin:24px 0;padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
 .fam{margin:64px 0 30px}
 .fam-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
 .fam-num{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.14em}
 .fam h2{font-size:clamp(22px,3.2vw,28px);letter-spacing:-.02em;font-weight:800}
 .fam-desc{color:var(--muted);font-size:15px;max-width:640px;margin-bottom:26px}
 .patterns{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.pat{display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 20px 16px;color:var(--ink);text-decoration:none;transition:border-color .2s,transform .2s}
-.pat:hover{border-color:var(--gold);transform:translateY(-3px);text-decoration:none}
+.pat{display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 20px 16px;color:var(--ink)}
+.pat:hover{border-color:var(--gold)}
 .pat-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .pat-gate{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gold);border:1px solid rgba(245,197,66,.3);background:rgba(245,197,66,.06);padding:3px 8px;border-radius:6px}
 .fam-1 .pat-gate{color:var(--green);border-color:rgba(74,222,128,.3);background:rgba(74,222,128,.06)}
 .fam-2 .pat-gate{color:var(--gold)}
 .fam-3 .pat-gate{color:#c084fc;border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.06)}
 .pat-arrow{color:var(--dim);font-size:14px}
-.pat:hover .pat-arrow{color:var(--gold)}
+.pat-arrow:hover{color:var(--gold)}
 .pat h3{font-size:15.5px;margin-bottom:7px;letter-spacing:-.01em}
+.pat h3 a{color:var(--ink)}
+.pat h3 a:hover{color:var(--gold)}
 .pat p{color:var(--muted);font-size:13px;line-height:1.5}
 .pat-src{display:block;font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:10px;word-break:break-all}
+/* Expandable detail — native <details>, works without JS, no auto-motion */
+.pat-detail{margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
+.pat-detail summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--gold);font-size:13.5px;font-weight:600;list-style:none}
+.pat-detail summary::-webkit-details-marker{display:none}
+.pat-detail summary::before{content:"▸ ";font-size:12px}
+.pat-detail[open ] summary::before{content:"▾ "}
+.pat-detail summary:hover{text-decoration:underline}
+.pat-detail summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+.pat-detail-body{padding:6px 0 4px}
+.pat-detail-body h4{font-size:13px;color:var(--ink);margin:12px 0 4px;letter-spacing:-.01em}
+.pat-detail-body h4:first-child{margin-top:6px}
+.pat-detail-body p{font-size:13.5px}
 .synth{margin:70px 0 30px;padding:28px 30px;border:1px solid rgba(245,197,66,.3);border-radius:16px;background:rgba(245,197,66,.04)}
 .synth h2{font-size:20px;margin-bottom:14px;letter-spacing:-.01em}
 .synth p{color:var(--muted);font-size:15px;margin-bottom:10px}
@@ -70,11 +105,10 @@ h1{font-size:clamp(32px,5.2vw,48px);line-height:1.1;letter-spacing:-.03em;font-w
 footer{border-top:1px solid var(--border);padding:34px 0 70px;color:var(--dim);font-size:13.5px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer a{color:var(--muted)}
-@media(max-width:980px){.patterns{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:980px){.patterns{grid-template-columns:repeat(2,1fr)}.howto ol{grid-template-columns:1fr}}
 @media(max-width:640px){.patterns{grid-template-columns:1fr}.navlinks{gap:13px;font-size:12.5px}}
-
 /* PWA install button */
-.pwa-install{position:fixed;right:18px;bottom:86px;z-index:98;display:none;align-items:center;gap:8px;background:var(--gold);color:#000;font-weight:700;font-size:13.5px;font-family:var(--sans);padding:11px 18px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 4px 22px rgba(245,197,66,.4);transition:transform .15s,box-shadow .15s;min-height:44px}
+.pwa-install{position:fixed;right:18px;bottom:86px;z-index:98;display:none;align-items:center;gap:8px;background:var(--gold);color:#000;font-weight:700;font-size:13.5px;font-family:var(--sans);padding:11px 18px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 4px 22px rgba(245,197,66,.4);min-height:44px}
 .pwa-install:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(245,197,66,.55)}
 .pwa-install svg{flex-shrink:0}
 @media(prefers-reduced-motion:reduce){.pwa-install{transition:none}}
@@ -185,76 +219,220 @@ footer a{color:var(--muted)}
   <p class="sub">Searched the wide web, source by source. Every pattern below is named, real, and linked to a live page — arXiv, GitHub, Wikipedia, or the original paper. Three families: the workflows that <b>create</b> algorithms, the science that <b>proves</b> them, and the patterns that make them <b>land</b>.</p>
   <div class="count-line">49 patterns · 3 families · every URL verified live · no invented sources</div>
 
+  <section class="howto" aria-labelledby="howto-heading">
+    <h2 id="howto-heading">How to use the Atlas</h2>
+    <p>Each pattern has a one-line summary on its card. Open its detail for what it is, how it maps to GOLD, and one concrete action. Use search and the family filter to find your problem.</p>
+    <ol>
+      <li><b>Find your problem</b><span>Search by name or idea, or filter to one family: Engine (create), Receipt (prove), or Dealer (land).</span></li>
+      <li><b>Read the pattern</b><span>Open the detail. Read what it is, which GOLD gate it maps to and why, then the one concrete action.</span></li>
+      <li><b>Apply + verify</b><span>Do the action, then verify it: freeze before you look, demand the paired win, check the frozen holdout. No receipt, no claim.</span></li>
+    </ol>
+  </section>
+
+  <div class="controls" role="search" aria-label="Search and filter patterns">
+    <label for="atlas-search">Search patterns</label>
+    <input class="search-input" type="search" id="atlas-search" name="atlas-search" placeholder="Search by name or idea…" autocomplete="off">
+    <div class="fam-filters" role="group" aria-label="Filter by family">
+      <button type="button" class="fam-filter" data-family="all" aria-pressed="true">All families</button>
+      <button type="button" class="fam-filter" data-family="01" aria-pressed="false">Family 01 — Engine</button>
+      <button type="button" class="fam-filter" data-family="02" aria-pressed="false">Family 02 — Receipt</button>
+      <button type="button" class="fam-filter" data-family="03" aria-pressed="false">Family 03 — Dealer</button>
+    </div>
+  </div>
+  <p class="atlas-count" id="atlas-count" aria-live="polite">Showing 49 of 49 patterns.</p>
+  <p class="atlas-empty" id="atlas-empty" hidden>No patterns match. Clear the search or choose another family.</p>
+
   <div class="fam">
     <div class="fam-head"><span class="fam-num">FAMILY 01 — THE ENGINE</span><h2>Workflows that create algorithms.</h2></div>
     <p class="fam-desc">These are the systems that literally produce new algorithms. Every one runs the same loop: <b>propose</b> variants of a procedure → <b>evaluate</b> against a signal the procedure can't game → <b>keep</b> only what measurably wins → repeat on unseen instances. That loop is GOLD at machine speed.</p>
     <div class="patterns">
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/2506.13131" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>AlphaEvolve</h3>
+    <article class="pat rv fam-1" data-family="01" data-search="alphaevolve evolutionary llm agent code variants matrix attention kernels">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/2506.13131" target="_blank" rel="noopener" aria-label="Open source for AlphaEvolve">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2506.13131" target="_blank" rel="noopener">AlphaEvolve</a></h3>
       <p>Evolutionary LLM agent proposes and evaluates code variants; discovered improved matrix-mult and attention kernels.</p>
-      <span class="pat-src">arxiv.org/abs/2506.13131 · 304★</span>
-    </a>
-    <a class="pat rv fam-1" href="https://github.com/google-deepmind/funsearch" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>FunSearch</h3>
+      <span class="pat-src">arxiv.org/abs/2506.13131</span>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>An evolutionary agent that uses a language model to propose code variants and an evaluator to score them, keeping only variants that measurably improve. It runs the propose–evaluate–keep loop that GOLD formalises. Its reported results include improved matrix-multiplication and attention kernels.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — the loop itself is GOLD at machine speed. The win still needs GOLD's receipt: a frozen holdout and a paired win, so the kernel gain is proved real, not benchmark gaming.</p>
+          <h4>How to use it</h4>
+          <p>When you evolve code, freeze your evaluator and holdout before the run, then keep only variants that win on the frozen set.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="funsearch llm mutation operator programs external evaluator math bin-packing heuristics nature">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://github.com/google-deepmind/funsearch" target="_blank" rel="noopener" aria-label="Open source for FunSearch">↗</a></div>
+      <h3><a href="https://github.com/google-deepmind/funsearch" target="_blank" rel="noopener">FunSearch</a></h3>
       <p>LLM as mutation operator over programs + external evaluator selects candidates; found new math and bin-packing heuristics. Published in Nature.</p>
-      <span class="pat-src">github.com/google-deepmind/funsearch · 1,133★</span>
-    </a>
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/1712.01815" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>AlphaZero self-play</h3>
+      <span class="pat-src">github.com/google-deepmind/funsearch</span>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A system that uses a language model as a mutation operator over programs, with an external evaluator selecting the candidates that survive. It searches program space rather than hand-designing heuristics. It was published in Nature, with new results in mathematics and bin-packing heuristics.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — propose–evaluate–keep at machine speed. The external evaluator is the key: it is the ungameable signal GOLD demands.</p>
+          <h4>How to use it</h4>
+          <p>When you search program space, put the evaluator outside the search so the search cannot rewrite its own score.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="alphazero self-play reinforcement learning monte-carlo tree search superhuman game">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/1712.01815" target="_blank" rel="noopener" aria-label="Open source for AlphaZero self-play">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/1712.01815" target="_blank" rel="noopener">AlphaZero self-play</a></h3>
       <p>Learns superhuman game play from scratch via self-play RL combined with Monte-Carlo tree search.</p>
       <span class="pat-src">arxiv.org/abs/1712.01815</span>
-    </a>
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/2502.03544" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>AlphaGeometry 2</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A system that learns superhuman game play from scratch, without human games, by playing against itself. It combines reinforcement learning with Monte-Carlo tree search. It improves by keeping only play that wins against its own past versions.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — self-play is propose–evaluate–keep where the opponent is the previous version. The receipt is the win rate against a frozen opponent, not against a moving one.</p>
+          <h4>How to use it</h4>
+          <p>When you train by self-play, freeze a past version as the opponent for evaluation, so improvement is measured, not assumed.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="alphageometry 2 neural symbolic synthetic data llm geometry solver olympiad proofs">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/2502.03544" target="_blank" rel="noopener" aria-label="Open source for AlphaGeometry 2">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2502.03544" target="_blank" rel="noopener">AlphaGeometry 2</a></h3>
       <p>Neural-symbolic system: synthetic-data engine + LLM + symbolic geometry solver evolves olympiad proofs.</p>
       <span class="pat-src">arxiv.org/abs/2502.03544</span>
-    </a>
-    <a class="pat rv fam-1" href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>AlphaProof</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A neural-symbolic system for geometry: a synthetic-data engine generates problems, a language model proposes steps, and a symbolic solver checks them. The symbolic solver is the verifier — a proposed proof only counts if the solver accepts it. It evolves olympiad-level proofs by keeping only verified steps.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — generation plus a hard verifier is the GOLD loop. The symbolic solver is the sealed truth the proposal must satisfy.</p>
+          <h4>How to use it</h4>
+          <p>When you generate proofs or plans, pair the generator with a checker that can reject its output, and keep only what the checker accepts.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="alphaproof reinforcement learning formal math lean proofs imo silver medal">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noopener" aria-label="Open source for AlphaProof">↗</a></div>
+      <h3><a href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noopener">AlphaProof</a></h3>
       <p>RL-trained formal-math model combined with search produces Lean proofs at IMO silver-medal standard.</p>
       <span class="pat-src">deepmind.google/blog</span>
-    </a>
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/2505.22954" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>Darwin Gödel Machine</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A model for formal mathematics that combines reinforcement-learning training with search to produce proofs in Lean, a proof-checking language. A proof counts only if Lean accepts it. Its reported standard is IMO silver-medal level.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — search plus a formal checker is the GOLD loop. Lean is the sealed truth: the proof either checks or it does not.</p>
+          <h4>How to use it</h4>
+          <p>When you claim a formal result, require the proof to pass the checker, and report the checker's verdict, not the model's confidence.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="darwin godel machine self-modifying code open-ended benchmark self-improvement">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/2505.22954" target="_blank" rel="noopener" aria-label="Open source for Darwin Gödel Machine">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2505.22954" target="_blank" rel="noopener">Darwin Gödel Machine</a></h3>
       <p>Agent rewrites its own code in open-ended loops, benchmarks itself, and keeps only self-modifications that measurably improve.</p>
-      <span class="pat-src">arxiv.org/abs/2505.22954 · 2,416★</span>
-    </a>
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/2408.06292" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>The AI Scientist</h3>
+      <span class="pat-src">arxiv.org/abs/2505.22954</span>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>An agent that rewrites its own code in open-ended loops, benchmarks itself, and keeps only self-modifications that measurably improve. The benchmark is the evaluator; the agent cannot keep a change that fails it. It is self-modification under a fixed score.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — self-modification under a frozen benchmark is the GOLD loop turned inward. The danger is benchmark gaming, so the benchmark must be frozen before the run.</p>
+          <h4>How to use it</h4>
+          <p>Before letting an agent modify itself, freeze the benchmark and forbid the agent from editing the benchmark or the scoring code.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="ai scientist llm ideas automated experiments papers closed loop research">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/2408.06292" target="_blank" rel="noopener" aria-label="Open source for The AI Scientist">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2408.06292" target="_blank" rel="noopener">The AI Scientist</a></h3>
       <p>LLM proposes ideas, runs automated experiments, and writes full papers in a closed loop.</p>
-      <span class="pat-src">arxiv.org/abs/2408.06292 · 14,717★</span>
-    </a>
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>Reflexion</h3>
+      <span class="pat-src">arxiv.org/abs/2408.06292</span>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A system in which a language model proposes research ideas, runs automated experiments, and writes full papers in a closed loop. The experiment is the evaluator: an idea survives only if the experiment supports it. It automates the full idea-to-paper pipeline.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — idea–experiment–paper is propose–evaluate–keep for research. The receipt is the experiment, not the paper: GOLD demands the result survive a frozen holdout and a paired win.</p>
+          <h4>How to use it</h4>
+          <p>When you automate research, require every claim in the paper to trace to a logged experiment with a frozen analysis plan.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="reflexion verbal self-reflection failures episodic memory retry">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noopener" aria-label="Open source for Reflexion">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noopener">Reflexion</a></h3>
       <p>Stores verbal self-reflections after failures as episodic memory, improving subsequent task attempts.</p>
       <span class="pat-src">arxiv.org/abs/2303.11366</span>
-    </a>
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/2305.16291" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>Voyager</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A method that stores verbal self-reflections after failures as episodic memory, so later attempts can use them. The agent reflects on what went wrong, writes it down, and retries with that memory in context. It improves subsequent attempts without retraining.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — reflection plus retry is propose–evaluate–keep across attempts. The reflection is only useful if the failure is real, so the evaluator must be honest.</p>
+          <h4>How to use it</h4>
+          <p>After a failure, write a one-paragraph reflection naming what failed and what to try next, then retry with that reflection in context.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="voyager open-ended embodied minecraft skill code library program">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/2305.16291" target="_blank" rel="noopener" aria-label="Open source for Voyager">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2305.16291" target="_blank" rel="noopener">Voyager</a></h3>
       <p>Open-ended embodied loop: propose skill code, execute in Minecraft, commit successes to a growing program library.</p>
-      <span class="pat-src">arxiv.org/abs/2305.16291 · 7,260★</span>
-    </a>
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/2305.20050" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>Verifier-in-the-loop</h3>
+      <span class="pat-src">arxiv.org/abs/2305.16291</span>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>An open-ended embodied loop that proposes skill code, executes it in Minecraft, and commits successes to a growing program library. A skill only enters the library if it executes successfully. The library compounds: later skills build on earlier ones.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — propose–execute–commit is the GOLD loop in an embodied world. Execution is the evaluator: a skill that does not run does not get kept.</p>
+          <h4>How to use it</h4>
+          <p>When you build a skill library, admit a skill only after it executes successfully on a task it has not seen before.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="verifier-in-the-loop process reward model reasoning steps search filter">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/2305.20050" target="_blank" rel="noopener" aria-label="Open source for Verifier-in-the-loop">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2305.20050" target="_blank" rel="noopener">Verifier-in-the-loop</a></h3>
       <p>A step-level process reward model scores each reasoning step and is used to search and filter correct solutions.</p>
       <span class="pat-src">arxiv.org/abs/2305.20050</span>
-    </a>
-    <a class="pat rv fam-1" href="https://arxiv.org/abs/2408.03314" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><span class="pat-arrow">↗</span></div>
-      <h3>Test-time compute scaling</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A method that uses a step-level process reward model to score each reasoning step, then uses those scores to search for and filter correct solutions. The verifier scores the process, not just the final answer. It turns verification into a search guide.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — a step-level verifier is GOLD's receipt applied inside the search. The verifier must be trained on steps it did not see, or it will reward its own habits.</p>
+          <h4>How to use it</h4>
+          <p>When you search over reasoning, score each step with a verifier trained on held-out steps, and keep only solutions whose every step passes.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-1" data-family="01" data-search="test-time compute scaling inference search verification parameters">
+      <div class="pat-head"><span class="pat-gate">CREATES GOLD</span><a class="pat-arrow" href="https://arxiv.org/abs/2408.03314" target="_blank" rel="noopener" aria-label="Open source for Test-time compute scaling">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2408.03314" target="_blank" rel="noopener">Test-time compute scaling</a></h3>
       <p>Scale inference-time search and verification per problem — beyond parameter scaling.</p>
       <span class="pat-src">arxiv.org/abs/2408.03314</span>
-    </a>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A strategy that scales inference-time search and verification per problem, instead of only scaling model parameters. Harder problems get more search, more checks, more retries. It trades compute at test time for accuracy.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>CREATES GOLD — more search plus more verification is the GOLD loop with the budget moved to test time. The extra compute only helps if the verification is honest.</p>
+          <h4>How to use it</h4>
+          <p>When a problem matters, spend the extra budget on verification (re-checks, holdout, paired comparison), not just on generating more candidates.</p>
+        </div>
+      </details>
+    </article>
     </div>
   </div>
 
@@ -262,162 +440,448 @@ footer a{color:var(--muted)}
     <div class="fam-head"><span class="fam-num">FAMILY 02 — THE RECEIPT</span><h2>Verification integrity: how you know it's real.</h2></div>
     <p class="fam-desc">The statistics and testing science behind the gates. Campbell's law, the winner's curse, and forking paths tell you why single runs lie; always-valid inference, holdouts, k-fold, and interleaving are the mathematics of proof; mutation, metamorphic, fuzzing, chaos, and canary are the proof for code and systems.</p>
     <div class="patterns">
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Campbell%27s_law" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 05</span><span class="pat-arrow">↗</span></div>
-      <h3>Campbell&#x27;s law</h3>
+    <article class="pat rv fam-2" data-family="02" data-search="campbell law measure decision-making corrupted gaming pressure goodhart">
+      <div class="pat-head"><span class="pat-gate">GATE 05</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Campbell%27s_law" target="_blank" rel="noopener" aria-label="Open source for Campbell's law">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Campbell%27s_law" target="_blank" rel="noopener">Campbell&#x27;s law</a></h3>
       <p>The more an outcome measure is used for decision-making, the more it is corrupted by gaming and pressure.</p>
       <span class="pat-src">wikipedia.org/wiki/Campbell&#x27;s_law</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Winner%27s_curse" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 04</span><span class="pat-arrow">↗</span></div>
-      <h3>Winner&#x27;s curse</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>When an outcome measure is used for decision-making, it gets corrupted by gaming and pressure. People optimise the measure instead of the outcome it stood for. The more the measure matters, the more it is gamed.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Goodhart gate (GATE 05). GOLD demands proof the win is not the metric being gamed: guardrail metrics, a sealed truth, and a paired win that survives.</p>
+          <h4>How to use it</h4>
+          <p>Before adopting a metric as a target, name one way it could be gamed, and add a guardrail metric that must not degrade.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="winner curse selected best luckiest outlier overstates true effect selection">
+      <div class="pat-head"><span class="pat-gate">GATE 04</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Winner%27s_curse" target="_blank" rel="noopener" aria-label="Open source for Winner's curse">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Winner%27s_curse" target="_blank" rel="noopener">Winner&#x27;s curse</a></h3>
       <p>The selected &quot;best&quot; tends to be the luckiest outlier, overstating the true effect.</p>
       <span class="pat-src">wikipedia.org/wiki/Winner&#x27;s_curse</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Garden_of_forking_paths" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 01</span><span class="pat-arrow">↗</span></div>
-      <h3>Garden of forking paths</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>When you select the "best" from many candidates, the winner tends to be the luckiest outlier, not the truly best. The selection itself inflates the apparent effect. The winner's measured advantage overstates its true advantage.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Paired win gate (GATE 04). GOLD demands the paired win survive bootstrap and correction, so luck is averaged out.</p>
+          <h4>How to use it</h4>
+          <p>When you pick a winner from many candidates, re-test the winner on fresh data before claiming the win.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="garden forking paths researcher degrees freedom p-value hidden choices">
+      <div class="pat-head"><span class="pat-gate">GATE 01</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Garden_of_forking_paths" target="_blank" rel="noopener" aria-label="Open source for Garden of forking paths">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Garden_of_forking_paths" target="_blank" rel="noopener">Garden of forking paths</a></h3>
       <p>Hidden researcher degrees of freedom exploited until p&lt;0.05 appears.</p>
       <span class="pat-src">wikipedia.org/wiki/Garden_of_forking_paths</span>
-    </a>
-    <a class="pat rv fam-2" href="https://arxiv.org/abs/1810.08240" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 04</span><span class="pat-arrow">↗</span></div>
-      <h3>Always-valid inference</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Hidden researcher degrees of freedom — choices of model, metric, cutoff, exclusion — are exploited, consciously or not, until a p-value below 0.05 appears. The path taken is chosen after seeing the data. The result looks significant but is selected.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Commit gate (GATE 01). GOLD demands freeze before you look: lock hypothesis, model, and analysis before seeing outcomes.</p>
+          <h4>How to use it</h4>
+          <p>Before you look at outcomes, write down your hypothesis, model, and analysis plan, and do not change them after seeing the data.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="always-valid inference confidence sequences stopping time false positives optional stopping">
+      <div class="pat-head"><span class="pat-gate">GATE 04</span><a class="pat-arrow" href="https://arxiv.org/abs/1810.08240" target="_blank" rel="noopener" aria-label="Open source for Always-valid inference">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/1810.08240" target="_blank" rel="noopener">Always-valid inference</a></h3>
       <p>Confidence sequences valid at every stopping time, controlling false positives under optional stopping.</p>
       <span class="pat-src">arxiv.org/abs/1810.08240</span>
-    </a>
-    <a class="pat rv fam-2" href="https://arxiv.org/abs/1512.04922" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 04</span><span class="pat-arrow">↗</span></div>
-      <h3>Sequential testing</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A method that gives confidence sequences valid at every stopping time, so false positives stay controlled even if you peek and stop early. It removes the penalty for looking. It lets you monitor continuously without inflating error.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Paired win gate (GATE 04). GOLD demands inference that survives peeking, because real work peeks.</p>
+          <h4>How to use it</h4>
+          <p>When you monitor an experiment continuously, use always-valid confidence sequences, not fixed-sample tests checked early.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="sequential testing anytime-valid p-values mixture likelihood ratios peek stop early">
+      <div class="pat-head"><span class="pat-gate">GATE 04</span><a class="pat-arrow" href="https://arxiv.org/abs/1512.04922" target="_blank" rel="noopener" aria-label="Open source for Sequential testing">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/1512.04922" target="_blank" rel="noopener">Sequential testing</a></h3>
       <p>Any-time-valid p-values via mixture likelihood ratios — peek and stop early without inflation.</p>
       <span class="pat-src">arxiv.org/abs/1512.04922</span>
-    </a>
-    <a class="pat rv fam-2" href="https://arxiv.org/abs/1906.07801" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 04</span><span class="pat-arrow">↗</span></div>
-      <h3>E-values / e-processes</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A method that uses any-time-valid p-values built from mixture likelihood ratios, so you can peek and stop early without inflating false positives. It makes early stopping honest. It is the sequential form of always-valid inference.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Paired win gate (GATE 04). GOLD demands the win survive honest sequential testing, not a peeked fixed-sample test.</p>
+          <h4>How to use it</h4>
+          <p>When you plan to peek, pre-commit to a sequential test, and stop only when it says stop.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="e-values e-processes running product type-i error optional stopping betting evidence">
+      <div class="pat-head"><span class="pat-gate">GATE 04</span><a class="pat-arrow" href="https://arxiv.org/abs/1906.07801" target="_blank" rel="noopener" aria-label="Open source for E-values / e-processes">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/1906.07801" target="_blank" rel="noopener">E-values / e-processes</a></h3>
       <p>A running-product statistic controlling type-I error under optional stopping.</p>
       <span class="pat-src">arxiv.org/abs/1906.07801</span>
-    </a>
-    <a class="pat rv fam-2" href="https://arxiv.org/abs/1808.00114" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 06</span><span class="pat-arrow">↗</span></div>
-      <h3>Guardrail metrics</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A running-product statistic that controls type-I error under optional stopping. The e-value accumulates evidence as data arrives, and stays valid whenever you stop. It is the betting form of sequential evidence.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Paired win gate (GATE 04). GOLD demands evidence that survives optional stopping.</p>
+          <h4>How to use it</h4>
+          <p>When you accumulate evidence over time, track an e-process, and report its value at the time you stop.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="guardrail metrics not objective must not degrade cost gate">
+      <div class="pat-head"><span class="pat-gate">GATE 06</span><a class="pat-arrow" href="https://arxiv.org/abs/1808.00114" target="_blank" rel="noopener" aria-label="Open source for Guardrail metrics">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/1808.00114" target="_blank" rel="noopener">Guardrail metrics</a></h3>
       <p>Metrics that are not the objective but must not degrade — the cost gate&#x27;s cousin.</p>
       <span class="pat-src">arxiv.org/abs/1808.00114</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/A/B_testing" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">PARITY</span><span class="pat-arrow">↗</span></div>
-      <h3>A/A testing</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Metrics that are not the objective but must not degrade while you optimise the objective. They guard against wins that break something else. They are the cost gate's cousin: they keep a win honest.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Cost gate (GATE 06). GOLD demands the win not be bought by degrading a guardrail.</p>
+          <h4>How to use it</h4>
+          <p>For every objective you optimise, name two guardrail metrics that must not degrade, and check them before claiming the win.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="a/a testing identical variants variance false-positive rate calibration">
+      <div class="pat-head"><span class="pat-gate">PARITY</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/A/B_testing" target="_blank" rel="noopener" aria-label="Open source for A/A testing">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/A/B_testing" target="_blank" rel="noopener">A/A testing</a></h3>
       <p>Run two identical variants to calibrate variance and false-positive rate before real experiments.</p>
       <span class="pat-src">wikipedia.org/wiki/A/B_testing</span>
-    </a>
-    <a class="pat rv fam-2" href="https://osf.io/" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 01</span><span class="pat-arrow">↗</span></div>
-      <h3>Preregistration</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A test that runs two identical variants to calibrate variance and false-positive rate before running real experiments. If identical variants "differ," your measurement is broken. It is a smoke test for the experiment system.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Parity gate. GOLD demands the same fight for both sides, and A/A proves the fight is fair.</p>
+          <h4>How to use it</h4>
+          <p>Before a real experiment, run an A/A test and confirm the false-positive rate matches what your test assumes.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="preregistration lock hypothesis model analysis plan before seeing outcomes">
+      <div class="pat-head"><span class="pat-gate">GATE 01</span><a class="pat-arrow" href="https://osf.io/" target="_blank" rel="noopener" aria-label="Open source for Preregistration">↗</a></div>
+      <h3><a href="https://osf.io/" target="_blank" rel="noopener">Preregistration</a></h3>
       <p>Lock hypothesis, model, and analysis plan before seeing outcomes.</p>
       <span class="pat-src">osf.io</span>
-    </a>
-    <a class="pat rv fam-2" href="https://www.cos.io/initiatives/registered-reports" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 01</span><span class="pat-arrow">↗</span></div>
-      <h3>Registered reports</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Locking your hypothesis, model, and analysis plan before seeing outcomes, by registering them publicly. It removes the freedom to choose the analysis after seeing the data. It makes the commitment checkable.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Commit gate (GATE 01). GOLD demands freeze before you look.</p>
+          <h4>How to use it</h4>
+          <p>Before you collect outcomes, write your hypothesis, model, and analysis in a dated, uneditable record.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="registered reports peer review protocol before results publishability">
+      <div class="pat-head"><span class="pat-gate">GATE 01</span><a class="pat-arrow" href="https://www.cos.io/initiatives/registered-reports" target="_blank" rel="noopener" aria-label="Open source for Registered reports">↗</a></div>
+      <h3><a href="https://www.cos.io/initiatives/registered-reports" target="_blank" rel="noopener">Registered reports</a></h3>
       <p>Peer review of the protocol before results, so findings can&#x27;t change publishability.</p>
       <span class="pat-src">cos.io</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Holdout_method" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">SEEDS+1</span><span class="pat-arrow">↗</span></div>
-      <h3>Holdout methodology</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Peer review of the protocol before results exist, so findings cannot change publishability. The journal commits to publish whatever the pre-approved protocol finds. It removes publication bias from the result.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Commit gate (GATE 01). GOLD demands the commitment be reviewed before the outcome, not after.</p>
+          <h4>How to use it</h4>
+          <p>For a high-stakes study, submit the protocol for review before running it, and do not change the protocol after seeing results.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="holdout methodology frozen holdout evaluate once never iterate test set seeds">
+      <div class="pat-head"><span class="pat-gate">SEEDS+1</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Holdout_method" target="_blank" rel="noopener" aria-label="Open source for Holdout methodology">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Holdout_method" target="_blank" rel="noopener">Holdout methodology</a></h3>
       <p>Evaluate once on a frozen holdout; never iterate on the test set.</p>
       <span class="pat-src">wikipedia.org/wiki/Holdout_method</span>
-    </a>
-    <a class="pat rv fam-2" href="https://www.kaggle.com/docs/competitions" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">SEEDS+1</span><span class="pat-arrow">↗</span></div>
-      <h3>Kaggle LB shuffle</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Evaluating once on a frozen holdout set, and never iterating on the test set. The holdout is touched once, for the final verdict. Any iteration on it turns it into training data.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>SEEDS+1 protocol — 5 fresh seeds plus one frozen holdout run. GOLD demands the final verdict come from data never used for tuning.</p>
+          <h4>How to use it</h4>
+          <p>Freeze a holdout before tuning, and evaluate on it exactly once, at the end.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="kaggle lb shuffle public leaderboard overfits private leaderboard">
+      <div class="pat-head"><span class="pat-gate">SEEDS+1</span><a class="pat-arrow" href="https://www.kaggle.com/docs/competitions" target="_blank" rel="noopener" aria-label="Open source for Kaggle LB shuffle">↗</a></div>
+      <h3><a href="https://www.kaggle.com/docs/competitions" target="_blank" rel="noopener">Kaggle LB shuffle</a></h3>
       <p>Optimizing the public leaderboard overfits its slice; only the private LB measures truth.</p>
       <span class="pat-src">kaggle.com/docs/competitions</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Novelty_effect" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GOODHART</span><span class="pat-arrow">↗</span></div>
-      <h3>Novelty effect</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>The public leaderboard is a slice of the test set; optimising it overfits that slice. Only the private leaderboard measures the truth. Public-score chasing is holdout gaming.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>SEEDS+1 protocol. GOLD demands the verdict come from a frozen set never used for tuning.</p>
+          <h4>How to use it</h4>
+          <p>Treat any public leaderboard as training feedback, and judge only by a private, frozen set.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="novelty effect users react new short-term metrics decay">
+      <div class="pat-head"><span class="pat-gate">GOODHART</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Novelty_effect" target="_blank" rel="noopener" aria-label="Open source for Novelty effect">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Novelty_effect" target="_blank" rel="noopener">Novelty effect</a></h3>
       <p>Users react to &quot;new&quot; regardless of quality, inflating short-term metrics that decay.</p>
       <span class="pat-src">wikipedia.org/wiki/Novelty_effect</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Primacy_effect" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GOODHART</span><span class="pat-arrow">↗</span></div>
-      <h3>Primacy effect</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Users react to "new" regardless of quality, inflating short-term metrics that then decay. A new feature wins at first because it is new, not because it is better. The lift fades as novelty wears off.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Goodhart gate. GOLD demands proof the win is not novelty: measure past the novelty window.</p>
+          <h4>How to use it</h4>
+          <p>When you ship something new, wait out the novelty window before measuring, and report the settled number, not the launch spike.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="primacy effect early items evaluation order-sensitive metrics">
+      <div class="pat-head"><span class="pat-gate">GOODHART</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Primacy_effect" target="_blank" rel="noopener" aria-label="Open source for Primacy effect">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Primacy_effect" target="_blank" rel="noopener">Primacy effect</a></h3>
       <p>Early items strongly shape evaluation, distorting order-sensitive metrics.</p>
       <span class="pat-src">wikipedia.org/wiki/Primacy_effect</span>
-    </a>
-    <a class="pat rv fam-2" href="https://arxiv.org/abs/2303.10094" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">PARITY</span><span class="pat-arrow">↗</span></div>
-      <h3>Interleaving experiments</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Early items strongly shape evaluation, distorting order-sensitive metrics. What is seen first is judged more favourably, regardless of quality. Order becomes a confounder.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Goodhart gate. GOLD demands the win not be an order artefact: randomise order, or account for it.</p>
+          <h4>How to use it</h4>
+          <p>When order could matter, randomise presentation order, and check that the win survives across orders.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="interleaving experiments compare algorithms single ranked list sensitivity online evaluation">
+      <div class="pat-head"><span class="pat-gate">PARITY</span><a class="pat-arrow" href="https://arxiv.org/abs/2303.10094" target="_blank" rel="noopener" aria-label="Open source for Interleaving experiments">↗</a></div>
+      <h3><a href="https://arxiv.org/abs/2303.10094" target="_blank" rel="noopener">Interleaving experiments</a></h3>
       <p>Compare algorithms within a single ranked list for high-sensitivity online evaluation.</p>
       <span class="pat-src">arxiv.org/abs/2303.10094</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">SEEDS+1</span><span class="pat-arrow">↗</span></div>
-      <h3>k-fold cross-validation</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A method that compares algorithms within a single ranked list, blending their outputs, for high-sensitivity online evaluation. It measures preference directly, with fewer users than a full A/B test. It is a fair fight inside one list.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Parity gate. GOLD demands the same fight for both sides, and interleaving is that fight.</p>
+          <h4>How to use it</h4>
+          <p>When you compare two rankers, interleave their outputs in one list and measure which side users prefer.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="k-fold cross-validation rotate train test splits variance generalisation">
+      <div class="pat-head"><span class="pat-gate">SEEDS+1</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)" target="_blank" rel="noopener" aria-label="Open source for k-fold cross-validation">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)" target="_blank" rel="noopener">k-fold cross-validation</a></h3>
       <p>Rotate train/test splits to reduce single-split variance in generalization estimates.</p>
       <span class="pat-src">wikipedia.org/wiki/Cross-validation</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/QuickCheck" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 02</span><span class="pat-arrow">↗</span></div>
-      <h3>Property-based testing</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A method that rotates train/test splits across k folds, so every instance is tested once, to reduce single-split variance in generalisation estimates. It averages out the luck of one split. It is not a substitute for a frozen holdout.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>SEEDS+1 protocol. GOLD demands the estimate not depend on one lucky split.</p>
+          <h4>How to use it</h4>
+          <p>When you estimate generalisation, use k-fold to reduce split variance, then confirm on a frozen holdout.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="property-based testing invariants generated inputs quickcheck examples">
+      <div class="pat-head"><span class="pat-gate">GATE 02</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/QuickCheck" target="_blank" rel="noopener" aria-label="Open source for Property-based testing">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/QuickCheck" target="_blank" rel="noopener">Property-based testing</a></h3>
       <p>Test universal invariants over automatically generated inputs rather than hand examples.</p>
       <span class="pat-src">wikipedia.org/wiki/QuickCheck</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Mutation_testing" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 02</span><span class="pat-arrow">↗</span></div>
-      <h3>Mutation testing</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Testing universal invariants over automatically generated inputs, rather than hand-picked examples. The property is the sealed expectation; the generator finds inputs that break it. It tests the rule, not the example.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Placebo gate (GATE 03). GOLD demands scoring against a sealed truth, and the property is that truth.</p>
+          <h4>How to use it</h4>
+          <p>For any rule your code must obey, write it as a property and test it over generated inputs.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="mutation testing mutants suite kills survival test effectiveness">
+      <div class="pat-head"><span class="pat-gate">GATE 02</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Mutation_testing" target="_blank" rel="noopener" aria-label="Open source for Mutation testing">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Mutation_testing" target="_blank" rel="noopener">Mutation testing</a></h3>
       <p>Inject small mutants; a good suite kills them; survival rate measures test effectiveness.</p>
       <span class="pat-src">wikipedia.org/wiki/Mutation_testing</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Metamorphic_testing" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 03</span><span class="pat-arrow">↗</span></div>
-      <h3>Metamorphic testing</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Injecting small mutants (tiny code changes) into a program, then checking whether the test suite kills them. A good suite kills the mutants; survival rate measures how effective the tests really are. It tests the tests.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Parity gate (GATE 02). GOLD demands the same rigour for both sides: the suite must catch faults, not just pass.</p>
+          <h4>How to use it</h4>
+          <p>After your suite passes, run mutation testing and strengthen the tests that let mutants survive.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="metamorphic testing relations transformed inputs no oracle failures">
+      <div class="pat-head"><span class="pat-gate">GATE 03</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Metamorphic_testing" target="_blank" rel="noopener" aria-label="Open source for Metamorphic testing">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Metamorphic_testing" target="_blank" rel="noopener">Metamorphic testing</a></h3>
       <p>Check relations over transformed inputs when no oracle exists; failures reveal bugs.</p>
       <span class="pat-src">wikipedia.org/wiki/Metamorphic_testing</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Fuzzing" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 02</span><span class="pat-arrow">↗</span></div>
-      <h3>Fuzzing</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Checking relations over transformed inputs when no oracle exists. If input A and transformed input B must satisfy a known relation, a violation reveals a bug. It tests without knowing the exact right answer.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Placebo gate (GATE 03). GOLD demands scoring against a sealed truth, and the metamorphic relation is that truth.</p>
+          <h4>How to use it</h4>
+          <p>When you have no oracle, write a metamorphic relation (for example, a transformed input must give a predictably related output) and test it.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="fuzzing random structured inputs crashes exploits">
+      <div class="pat-head"><span class="pat-gate">GATE 02</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Fuzzing" target="_blank" rel="noopener" aria-label="Open source for Fuzzing">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Fuzzing" target="_blank" rel="noopener">Fuzzing</a></h3>
       <p>Automated generation of random structured inputs to surface crashes and exploits.</p>
       <span class="pat-src">wikipedia.org/wiki/Fuzzing</span>
-    </a>
-    <a class="pat rv fam-2" href="https://principlesofchaos.org/" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 06</span><span class="pat-arrow">↗</span></div>
-      <h3>Chaos engineering</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Automated generation of random structured inputs to surface crashes and exploits. The fuzzer feeds the program inputs no human would write. It finds failures by volume, not by cleverness.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Parity gate (GATE 02). GOLD demands the same fight for both sides: the program faces inputs it was not tuned for.</p>
+          <h4>How to use it</h4>
+          <p>Before shipping, fuzz your inputs and fix every crash the fuzzer finds.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="chaos engineering inject failures production resilience outages">
+      <div class="pat-head"><span class="pat-gate">GATE 06</span><a class="pat-arrow" href="https://principlesofchaos.org/" target="_blank" rel="noopener" aria-label="Open source for Chaos engineering">↗</a></div>
+      <h3><a href="https://principlesofchaos.org/" target="_blank" rel="noopener">Chaos engineering</a></h3>
       <p>Deliberately inject failures in production to verify resilience before real outages.</p>
       <span class="pat-src">principlesofchaos.org</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Canary_release" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 06</span><span class="pat-arrow">↗</span></div>
-      <h3>Canary releases</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Deliberately injecting failures in production to verify resilience before real outages happen. You break things on purpose, on your terms, to prove the system survives. It tests resilience, not just correctness.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Cost gate (GATE 06). GOLD demands the win survive real-world cost: failures, load, and degraded conditions.</p>
+          <h4>How to use it</h4>
+          <p>In a controlled window, inject one realistic failure (a dead dependency, a slow network) and verify the system degrades gracefully.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="canary releases small subset rollout monitor ramp rollback">
+      <div class="pat-head"><span class="pat-gate">GATE 06</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Canary_release" target="_blank" rel="noopener" aria-label="Open source for Canary releases">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Canary_release" target="_blank" rel="noopener">Canary releases</a></h3>
       <p>Roll out to a small subset first; monitor metrics; ramp or roll back on evidence.</p>
       <span class="pat-src">wikipedia.org/wiki/Canary_release</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Red_teaming" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 03</span><span class="pat-arrow">↗</span></div>
-      <h3>Red teaming</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Rolling out to a small subset first, monitoring metrics, then ramping or rolling back on evidence. The canary is the first real test. It limits the blast radius of a bad release.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Cost gate (GATE 06). GOLD demands the rollout prove itself on a small subset before it costs everyone.</p>
+          <h4>How to use it</h4>
+          <p>Roll out to a small subset, watch guardrail metrics, and ramp only when the canary shows no degradation.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="red teaming adversarial probing break system launch">
+      <div class="pat-head"><span class="pat-gate">GATE 03</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Red_teaming" target="_blank" rel="noopener" aria-label="Open source for Red teaming">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Red_teaming" target="_blank" rel="noopener">Red teaming</a></h3>
       <p>Adversarial probing of systems to surface failures before launch.</p>
       <span class="pat-src">wikipedia.org/wiki/Red_teaming</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Adversarial_collaboration" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 03</span><span class="pat-arrow">↗</span></div>
-      <h3>Adversarial collaboration</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Adversarial probing of a system to surface failures before launch. A team tries to break the system the way an attacker would. It finds what friendly testing misses.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Placebo gate (GATE 03). GOLD demands scoring against a sealed truth, and the red team is the adversary that checks it.</p>
+          <h4>How to use it</h4>
+          <p>Before launch, have someone who did not build the system try to break it, and fix what they find.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="adversarial collaboration opposing camps jointly design experiment competing theories arbiter">
+      <div class="pat-head"><span class="pat-gate">GATE 03</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Adversarial_collaboration" target="_blank" rel="noopener" aria-label="Open source for Adversarial collaboration">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Adversarial_collaboration" target="_blank" rel="noopener">Adversarial collaboration</a></h3>
       <p>Opposing camps jointly design the experiment to test competing theories, neutral arbiter.</p>
       <span class="pat-src">wikipedia.org/wiki/Adversarial_collaboration</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Reproducibility" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">ALL GATES</span><span class="pat-arrow">↗</span></div>
-      <h3>Reproducibility crisis</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Opposing camps jointly design the experiment that tests their competing theories, with a neutral arbiter. Both sides agree on the test before it runs. It removes the freedom to design a test that favours one side.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Placebo gate (GATE 03). GOLD demands the test be agreed before the outcome, with a sealed truth both sides accept.</p>
+          <h4>How to use it</h4>
+          <p>When two sides disagree, have both sides co-design the test and agree on the verdict rule before running it.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="reproducibility crisis published findings fail replicate gates">
+      <div class="pat-head"><span class="pat-gate">ALL GATES</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Reproducibility" target="_blank" rel="noopener" aria-label="Open source for Reproducibility crisis">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Reproducibility" target="_blank" rel="noopener">Reproducibility crisis</a></h3>
       <p>Many published findings fail to replicate — the reason every gate above exists.</p>
       <span class="pat-src">wikipedia.org/wiki/Reproducibility</span>
-    </a>
-    <a class="pat rv fam-2" href="https://en.wikipedia.org/wiki/Cohen%27s_d" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GATE 04</span><span class="pat-arrow">↗</span></div>
-      <h3>Cohen&#x27;s d</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>The finding that many published results fail to replicate. It is the reason every gate exists: without discipline, results do not hold up. It is the background fact GOLD answers.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>ALL GATES. GOLD is the discipline that makes results reproduce.</p>
+          <h4>How to use it</h4>
+          <p>For any result you publish, keep the code, data, seeds, and analysis needed for someone else to reproduce it.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-2" data-family="02" data-search="cohen d standardized effect size comparable scales studies">
+      <div class="pat-head"><span class="pat-gate">GATE 04</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Cohen%27s_d" target="_blank" rel="noopener" aria-label="Open source for Cohen's d">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Cohen%27s_d" target="_blank" rel="noopener">Cohen&#x27;s d</a></h3>
       <p>Standardized effect size making results comparable across scales and studies.</p>
       <span class="pat-src">wikipedia.org/wiki/Cohen&#x27;s_d</span>
-    </a>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A standardised effect size that makes results comparable across scales and studies. It expresses the difference in units of variability, not raw units. It answers "how big" not just "is it significant."</p>
+          <h4>How it maps to GOLD</h4>
+          <p>Paired win gate (GATE 04). GOLD demands the paired win be expressed as an effect size, not just a p-value.</p>
+          <h4>How to use it</h4>
+          <p>When you report a win, report Cohen's d alongside the p-value, so the size of the win is visible.</p>
+        </div>
+      </details>
+    </article>
     </div>
   </div>
 
@@ -425,78 +889,210 @@ footer a{color:var(--muted)}
     <div class="fam-head"><span class="fam-num">FAMILY 03 — THE DEALER</span><h2>Engagement: how the fix lands.</h2></div>
     <p class="fam-desc">The persuasion patterns that make a standard stick — hook the gap, keep the loop open, anchor on the real number. The twist: the honesty itself is the hook. A standard that shows its own −0.144 correlation and 11 Goodhart flags is the only page that can't be a scam — and that's the most persuasive pattern on the site.</p>
     <div class="patterns">
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Hooked_(book)" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Hooked model</h3>
+    <article class="pat rv fam-3" data-family="03" data-search="hooked model trigger action variable reward investment habit-forming eyal">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Hooked_(book)" target="_blank" rel="noopener" aria-label="Open source for Hooked model">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Hooked_(book)" target="_blank" rel="noopener">Hooked model</a></h3>
       <p>Trigger → action → variable reward → investment: the loop that builds habit-forming products.</p>
       <span class="pat-src">wikipedia.org/wiki/Hooked_(book) · Nir Eyal</span>
-    </a>
-    <a class="pat rv fam-3" href="https://www.influenceatwork.com/principles-of-persuasion/" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Cialdini&#x27;s six principles</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A loop for habit-forming products: trigger, action, variable reward, investment. The trigger starts it, the action engages, the variable reward keeps it unpredictable, the investment makes return more likely. It is a loop, not a single trick.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD uses the loop honestly — the trigger is a real gap, the reward is a real receipt, the investment is real work.</p>
+          <h4>How to use it</h4>
+          <p>When you design a loop, make the reward a real result (a verified receipt), not a trick.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="cialdini six principles persuasion reciprocity commitment social proof authority liking scarcity">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://www.influenceatwork.com/principles-of-persuasion/" target="_blank" rel="noopener" aria-label="Open source for Cialdini's six principles">↗</a></div>
+      <h3><a href="https://www.influenceatwork.com/principles-of-persuasion/" target="_blank" rel="noopener">Cialdini&#x27;s six principles</a></h3>
       <p>Reciprocity, commitment/consistency, social proof, authority, liking, scarcity.</p>
       <span class="pat-src">influenceatwork.com</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Reinforcement" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Variable ratio reinforcement</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Six principles of persuasion: reciprocity, commitment and consistency, social proof, authority, liking, and scarcity. Each names a lever that moves people. They are tools, not guarantees.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD leans on the honest ones — commitment (freeze before you look) and social proof (reproducible results) — and refuses the dishonest uses.</p>
+          <h4>How to use it</h4>
+          <p>When you persuade, use commitment and social proof (real commitments, real replications), not fake scarcity or fake authority.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="variable ratio reinforcement unpredictable rewards engagement skinner schedule">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Reinforcement" target="_blank" rel="noopener" aria-label="Open source for Variable ratio reinforcement">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Reinforcement" target="_blank" rel="noopener">Variable ratio reinforcement</a></h3>
       <p>Unpredictable rewards after an action produce the strongest, most persistent engagement.</p>
       <span class="pat-src">wikipedia.org/wiki/Reinforcement · Skinner</span>
-    </a>
-    <a class="pat rv fam-3" href="https://web.archive.org/web/2020/https://www.cmu.edu/dietrich/sds/docs/loewenstein/PsychofCuriosity.pdf" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Curiosity gap</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Unpredictable rewards after an action produce the strongest, most persistent engagement. The reward comes after an unpredictable number of actions. It is the schedule behind slot machines and feeds.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD refuses variable-ratio tricks on the page — no fake-live, no auto-jitter. The page's reward is a real receipt, delivered when earned.</p>
+          <h4>How to use it</h4>
+          <p>Do NOT use variable-ratio rewards to hook visitors. Deliver the reward (the receipt) when the work is done, predictably.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="curiosity gap know want to know click loewenstein">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://web.archive.org/web/2020/https://www.cmu.edu/dietrich/sds/docs/loewenstein/PsychofCuriosity.pdf" target="_blank" rel="noopener" aria-label="Open source for Curiosity gap">↗</a></div>
+      <h3><a href="https://web.archive.org/web/2020/https://www.cmu.edu/dietrich/sds/docs/loewenstein/PsychofCuriosity.pdf" target="_blank" rel="noopener">Curiosity gap</a></h3>
       <p>A perceived gap between what you know and what you want to know creates the itch to click.</p>
       <span class="pat-src">Loewenstein 1994 · cmu.edu</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Zeigarnik_effect" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Zeigarnik effect</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>A perceived gap between what you know and what you want to know creates an itch to click. The gap is the hook. It works because the mind wants to close it.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD opens a real gap (a claim without a receipt) and closes it with evidence.</p>
+          <h4>How to use it</h4>
+          <p>Open a real gap — state the claim, withhold the verdict — then close it with the receipt, not with a trick.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="zeigarnik effect unfinished tasks open loops return visits memory">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Zeigarnik_effect" target="_blank" rel="noopener" aria-label="Open source for Zeigarnik effect">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Zeigarnik_effect" target="_blank" rel="noopener">Zeigarnik effect</a></h3>
       <p>Unfinished tasks dwell in the mind — open loops drive return visits.</p>
       <span class="pat-src">wikipedia.org/wiki/Zeigarnik_effect</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Prospect_theory" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Loss aversion</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Unfinished tasks dwell in the mind; open loops drive return visits. People remember incomplete tasks better than completed ones. The open loop is the pull.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD keeps the loop open honestly — the Atlas lists patterns to read, the standard lists gates to pass.</p>
+          <h4>How to use it</h4>
+          <p>Show visitors what is unfinished (gates not yet passed, patterns not yet read) and let them close the loop by doing the work.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="loss aversion losses twice painful gains prospect theory">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Prospect_theory" target="_blank" rel="noopener" aria-label="Open source for Loss aversion">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Prospect_theory" target="_blank" rel="noopener">Loss aversion</a></h3>
       <p>Losses feel roughly twice as painful as equivalent gains feel good.</p>
       <span class="pat-src">wikipedia.org/wiki/Prospect_theory</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Anchoring_effect" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Anchoring effect</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Losses feel roughly twice as painful as equivalent gains feel good. People work harder to avoid a loss than to gain the same amount. It is the asymmetry behind prospect theory.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD frames the loss honestly — the cost of shipping an unverified claim is real.</p>
+          <h4>How to use it</h4>
+          <p>When you present a standard, name the real loss of skipping it (a claim that fails in production), not an invented one.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="anchoring effect first number biases value judgments">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Anchoring_effect" target="_blank" rel="noopener" aria-label="Open source for Anchoring effect">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Anchoring_effect" target="_blank" rel="noopener">Anchoring effect</a></h3>
       <p>The first number seen disproportionately biases all later value judgments.</p>
       <span class="pat-src">wikipedia.org/wiki/Anchoring_effect</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Sunk_cost" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Sunk cost fallacy</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>The first number seen disproportionately biases all later value judgments. The anchor sets the frame, even when it is arbitrary. Later numbers are judged against it.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD anchors on the real number — the measured receipt, not a cherry-picked one.</p>
+          <h4>How to use it</h4>
+          <p>Anchor on the real measured number (the holdout result, the paired win), and show how it was measured.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="sunk cost fallacy keep investing effort already spent">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Sunk_cost" target="_blank" rel="noopener" aria-label="Open source for Sunk cost fallacy">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Sunk_cost" target="_blank" rel="noopener">Sunk cost fallacy</a></h3>
       <p>People keep investing in something they&#x27;ve already put effort into.</p>
       <span class="pat-src">wikipedia.org/wiki/Sunk_cost</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/IKEA_effect" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>IKEA effect</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>People keep investing in something they have already put effort into, even when stopping would be better. Past effort is treated as a reason to continue. It is a fallacy because past cost is gone either way.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD names sunk cost as a trap to avoid — a failing approach does not become right because you spent time on it.</p>
+          <h4>How to use it</h4>
+          <p>When an approach fails its gates, stop it, however much you spent on it. The receipt decides, not the sunk cost.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="ikea effect overvalue created themselves effort">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/IKEA_effect" target="_blank" rel="noopener" aria-label="Open source for IKEA effect">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/IKEA_effect" target="_blank" rel="noopener">IKEA effect</a></h3>
       <p>People overvalue things they partially created themselves.</p>
       <span class="pat-src">wikipedia.org/wiki/IKEA_effect</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Endowment_effect" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Endowment effect</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>People overvalue things they partially created themselves. Building part of it makes it feel more valuable. The effort becomes part of the value.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD uses the IKEA effect honestly — visitors who run the gates themselves value the receipt more, because they did the work.</p>
+          <h4>How to use it</h4>
+          <p>Let visitors run the gates themselves (check the receipt, verify the holdout), rather than asking them to take your word for it.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="endowment effect higher value own them ownership">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Endowment_effect" target="_blank" rel="noopener" aria-label="Open source for Endowment effect">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Endowment_effect" target="_blank" rel="noopener">Endowment effect</a></h3>
       <p>People ascribe higher value to things merely because they own them.</p>
       <span class="pat-src">wikipedia.org/wiki/Endowment_effect</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Peak%E2%80%93end_rule" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">DEALER</span><span class="pat-arrow">↗</span></div>
-      <h3>Peak-end rule</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>People ascribe higher value to things merely because they own them. Ownership alone inflates perceived value. It is the counterpart to loss aversion.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD refuses to exploit endowment — it does not make visitors feel they own a result they have not verified.</p>
+          <h4>How to use it</h4>
+          <p>Do NOT make visitors feel they own a result before they have verified it. The receipt is earned by verification, not by possession.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="peak-end rule experiences judged intense moment ending">
+      <div class="pat-head"><span class="pat-gate">DEALER</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Peak%E2%80%93end_rule" target="_blank" rel="noopener" aria-label="Open source for Peak-end rule">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Peak%E2%80%93end_rule" target="_blank" rel="noopener">Peak-end rule</a></h3>
       <p>Experiences are judged by their most intense moment and their ending.</p>
       <span class="pat-src">wikipedia.org/wiki/Peak–end_rule</span>
-    </a>
-    <a class="pat rv fam-3" href="https://en.wikipedia.org/wiki/Dark_pattern" target="_blank" rel="noopener">
-      <div class="pat-head"><span class="pat-gate">GUARDRAIL</span><span class="pat-arrow">↗</span></div>
-      <h3>Dark patterns (guardrail)</h3>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Experiences are judged by their most intense moment and their ending, not by the average. The peak and the end dominate memory. The rest fades.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>DEALER. GOLD designs the peak (the verified win) and the end (the receipt) to be real.</p>
+          <h4>How to use it</h4>
+          <p>Make the peak a real verified win and the ending a real receipt, so the memory is of something true.</p>
+        </div>
+      </details>
+    </article>
+    <article class="pat rv fam-3" data-family="03" data-search="dark patterns guardrail roach motels confirmshaming forced continuity brignull line do not cross">
+      <div class="pat-head"><span class="pat-gate">GUARDRAIL</span><a class="pat-arrow" href="https://en.wikipedia.org/wiki/Dark_pattern" target="_blank" rel="noopener" aria-label="Open source for Dark patterns (guardrail)">↗</a></div>
+      <h3><a href="https://en.wikipedia.org/wiki/Dark_pattern" target="_blank" rel="noopener">Dark patterns (guardrail)</a></h3>
       <p>The line we don&#x27;t cross: no roach motels, no confirmshaming, no forced continuity.</p>
       <span class="pat-src">wikipedia.org/wiki/Dark_pattern · Brignull</span>
-    </a>
+      <details class="pat-detail">
+        <summary>Detail: what it is, GOLD mapping, how to use it</summary>
+        <div class="pat-detail-body">
+          <h4>What it is</h4>
+          <p>Deceptive design patterns: roach motels (easy in, hard out), confirmshaming (guilt-tripping opt-outs), forced continuity (silent charges after a trial). They extract value by tricking users.</p>
+          <h4>How it maps to GOLD</h4>
+          <p>GUARDRAIL. GOLD draws the line here — no dark patterns. The standard's honesty is the hook, and dark patterns would destroy it.</p>
+          <h4>How to use it</h4>
+          <p>Audit every page for dark patterns, and remove any you find — no roach motels, no confirmshaming, no forced continuity.</p>
+        </div>
+      </details>
+    </article>
     </div>
   </div>
 
@@ -518,6 +1114,40 @@ footer a{color:var(--muted)}
   <div>Algorithmic Gold — the verification standard for AI work. Real outcomes. No mocked runs.</div>
   <div><a href="../">Back to the standard ↑</a></div>
 </div></footer>
+<script>
+// Atlas search + family filter — visitor-driven only, no timers, no auto-motion, no fetch, no tracking.
+// Works without JS: all cards visible, <details> expand natively. With JS: search + filter hide non-matching cards.
+(function(){
+  var search = document.getElementById('atlas-search');
+  var count = document.getElementById('atlas-count');
+  var empty = document.getElementById('atlas-empty');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.pat'));
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.fam-filter'));
+  var family = 'all';
+  function apply(){
+    var q = search ? search.value.trim().toLowerCase() : '';
+    var shown = 0;
+    cards.forEach(function(card){
+      var famOk = (family === 'all' || card.getAttribute('data-family') === family);
+      var hay = card.getAttribute('data-search') || '';
+      var textOk = (!q || hay.indexOf(q) !== -1);
+      var show = famOk && textOk;
+      card.style.display = show ? '' : 'none';
+      if (show) shown++;
+    });
+    if (count) count.textContent = 'Showing ' + shown + ' of 49 patterns.';
+    if (empty) empty.hidden = shown !== 0;
+  }
+  if (search) search.addEventListener('input', apply);
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      family = btn.getAttribute('data-family');
+      buttons.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      apply();
+    });
+  });
+})();
+</script>
 <script>
 // PWA install: capture beforeinstallprompt, expose install button, iOS fallback
 (function(){
